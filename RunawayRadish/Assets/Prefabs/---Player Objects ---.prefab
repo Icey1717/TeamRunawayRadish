@@ -543,8 +543,8 @@ MonoBehaviour:
     inTunnel: 0
   swing:
     swingPivot: {fileID: 0}
-    swingSpeed: 7
-    launchForce: 8
+    swingSpeed: 6.5
+    launchForce: 10
     swingDir: 0
     swinging: 0
     swingDist: 0
@@ -563,6 +563,7 @@ MonoBehaviour:
     jumpDelay: 0.2
     jumpDelayTimer: 0
   dash:
+    direction: 0
     dashPower: 10
     sprintMultiplier: 1.5
     sprintActive: 0

@@ -56,6 +56,8 @@ public class CollectableController : MonoBehaviour
 
             SphereCollider collider = GetComponent<SphereCollider>();
             collider.enabled = false;
+
+            PlayerController.followerAmount++;
         }
     }
 }

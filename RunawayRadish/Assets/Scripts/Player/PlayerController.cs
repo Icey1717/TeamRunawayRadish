@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     public bool programmerAnimation;
     public Animator animator;
     public MovementVar movement;
+
+    public static int followerAmount = 0;
+
     [System.Serializable]
     public class MovementVar
     {
@@ -79,13 +82,14 @@ public class PlayerController : MonoBehaviour
         public float jumpDelay = 0.2f;
         [HideInInspector]
         public float jumpDelayTimer = 0;
-        
+
     }
 
     public DashVar dash;
     [System.Serializable]
     public class DashVar
     {
+        public directionEnum direction = directionEnum.omnidirectional;
         public float dashPower = 5f;
         public float sprintMultiplier = 1.5f;
         [HideInInspector]
@@ -102,8 +106,10 @@ public class PlayerController : MonoBehaviour
         public Color dashColor = Color.cyan;
         public float bounceMultiplier = 2;
 
-       
+
     }
+
+    public enum directionEnum {horizontal,vertical,omnidirectional };
 
     public PhysicsVar physics;
     [System.Serializable]
@@ -308,11 +314,16 @@ public class PlayerController : MonoBehaviour
     }
     void DashPress(Vector2 moveDir)
     {
+        if (dash.direction == directionEnum.horizontal)
+            moveDir.y = 0;
+        if (dash.direction == directionEnum.vertical)
+            moveDir.x = 0;
         if (dash.dashesRemaining > 0 && dash.dashDelayTimer <= 0 && moveDir != Vector2.zero)
         {
             //Force PUUUUUSH
             rb.velocity = Vector3.zero;
             Vector3 forceDir = Vector3.Normalize(new Vector3(moveDir.x, moveDir.y, 0));
+            
             rb.AddForce(forceDir * dash.dashPower, ForceMode.Impulse);
 
             //Dash Limiters
