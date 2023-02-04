@@ -51,6 +51,15 @@ public class FinishLine : MonoBehaviour
             timerText.text = getTime(true);
         else
             timerText.text = getTime(false);
+
+        if (!takeCollectibles)
+        {
+            curCollectible = PlayerController.followerAmount;
+            if (tarCollectible > 0)
+                collectedText.text = curCollectible + "/" + tarCollectible.ToString() + " Collected";
+            else
+                collectedText.text = curCollectible + " Collected";
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -58,11 +67,15 @@ public class FinishLine : MonoBehaviour
         if (other.tag == "Player")
         {
             if (finishType == finishTypeEnum.reachHere)
-                finishEvent.Invoke();
+            {
+                if (curCollectible >= tarCollectible)
+                    finishEvent.Invoke();
+            }
             else
             {
                 if (takeCollectibles)
                 {
+                    other.GetComponent<FollowerTracker>().ResetChain();
                     curCollectible += PlayerController.followerAmount;
                     PlayerController.followerAmount = 0;
 

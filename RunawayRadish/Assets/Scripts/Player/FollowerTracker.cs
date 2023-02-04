@@ -27,4 +27,9 @@ public class FollowerTracker : MonoBehaviour
         nextFollower = requestee;
         return returnValue;
     }
+
+    public void ResetChain()
+    {
+        nextFollower = transform.gameObject;
+    }
 }
