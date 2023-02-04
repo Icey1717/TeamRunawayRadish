@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -40,6 +41,24 @@ public class PlayerController : MonoBehaviour
         public float turnSpeed;
         [HideInInspector]
         public bool inTunnel = false;
+    }
+    public SwingVar swing;
+    [System.Serializable]
+    public class SwingVar
+    {
+        [HideInInspector]
+        public Transform swingPivot;
+        public float swingSpeed = 5;
+        public float launchForce = 7;
+        [HideInInspector]
+        public int swingDir = 0;
+        [HideInInspector]
+        public bool swinging = false;
+        [HideInInspector]
+        public float swingDist;
+        public float minSwingDist = 1;
+
+        public LineRenderer LR;
     }
     public JumpVar jump;
     [System.Serializable]
@@ -140,15 +159,25 @@ public class PlayerController : MonoBehaviour
         {
             if (movement.disabledMovementTimer <= 0)
             {
-                if (dash.dashDelayTimer <= 0)
-                    Movement(inputDir);
+                if (!swing.swinging)
+                {
+                    if (dash.dashDelayTimer <= 0)
+                        Movement(inputDir);
 
-                DashController(inputDir);
+                    DashController(inputDir);
 
-                JumpController();
+                    JumpController();
+                }
+
+                    SwingController();
             }
             else
+            {
                 movement.disabledMovementTimer -= Time.deltaTime;
+                swing.swinging = false;
+                swing.LR.enabled = false;
+                rb.useGravity = true;
+            }
             if (movement.launchDelayTimer > 0)
                 movement.launchDelayTimer -= Time.deltaTime;
         }
@@ -228,10 +257,9 @@ public class PlayerController : MonoBehaviour
                 animator.Play("Jump");
         }
     }
-
-    //This is for making jumps bigger
     void JumpCharge()
     {
+        //This is for making jumps bigger
         if (jump.canHold)
         {
             if (jump.holdTimer < jump.holdMax - jump.holdIgnore)
@@ -241,7 +269,6 @@ public class PlayerController : MonoBehaviour
                 jump.canHold = false;
         }
     }
-
     void JumpRelease()
     {
         jump.canHold = false;
@@ -310,6 +337,78 @@ public class PlayerController : MonoBehaviour
     void DashRelease()
     {
         
+    }
+
+    //Swing
+    void SwingController()
+    {
+        if (swing.swinging)
+        {
+            Vector3 dir = swing.swingPivot.position - rb.position;
+            if (swing.swingDir == 1)
+                dir = Vector3.Normalize(new Vector3(dir.y, -dir.x, 0));
+            else
+                dir = Vector3.Normalize(new Vector3(-dir.y, dir.x, 0));
+            UnityEngine.Debug.Log(dir);
+            rb.AddForce(dir * swing.swingSpeed * 10);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, swing.swingSpeed);
+            rb.transform.position = swing.swingPivot.position + (Vector3.Normalize(rb.transform.position - swing.swingPivot.position) * swing.swingDist);
+
+            if (Input.GetButtonUp("Jump"))
+                SwingRelease();
+            swing.LR.enabled = true;
+            swing.LR.SetPosition(1, swing.swingPivot.position - rb.position);
+        }
+        else
+        {
+            swing.LR.enabled = false;
+            if (swing.swingPivot!= null && !physics.onGround)
+            {
+                if (Input.GetButtonDown("Jump"))
+                    SwingPress();
+            }
+        }
+    }
+    void SwingPress()
+    {
+        rb.useGravity = false;
+        swing.swinging = true;
+        Vector3 dir = swing.swingPivot.position - rb.position;
+            Vector3 cw = Vector3.Normalize(new Vector3(dir.y, -dir.x, 0));
+            Vector3 ccw = Vector3.Normalize(new Vector3(-dir.y, dir.x, 0));
+        dir = Vector3.Normalize(rb.velocity);
+        if (Vector3.Distance(cw, dir) < Vector3.Distance(ccw, dir))
+            swing.swingDir = 1;
+        else
+            swing.swingDir = -1;
+
+        swing.swingDist = Mathf.Max(Vector3.Distance(swing.swingPivot.transform.position, rb.position), swing.minSwingDist);
+
+        dash.dashDelayTimer = 0;
+        jump.jumpDelayTimer = 0;
+        dash.dashesRemaining = dash.maxDashes;
+        jump.jumpsRemaining = jump.maxJumps;
+        for (int i = 0; i < dash.maxDashes; i++)
+        {
+            dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
+        }
+        mr.material.SetColor("_Color", Color.white);
+    }
+    void SwingCharge()
+    {
+        
+    }
+
+    void SwingRelease()
+    {
+        swing.swinging = false;
+        swing.LR.enabled = false;
+        rb.useGravity = true;
+
+        Vector3 launchPower = Vector3.Normalize(rb.velocity) * swing.launchForce;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(launchPower, ForceMode.Impulse);
+        DisableInteraction(0.15f);
     }
 
     //Z Track
@@ -385,18 +484,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void TriggerStay(Collider other)
+    {
+        if (other.tag == "Swing")
+        {
+            swing.swingPivot = other.transform;
+        }
+    }
+
+    public void TriggerExit(Collider other)
+    {
+        if (other.tag == "Swing")
+        {
+            if (other.transform == swing.swingPivot && swing.swinging == false)
+            {
+                swing.swingPivot = null;
+            }
+        }
+    }
+
     public void TunnelActivate(bool activate)
     {
         if (activate)
         {
-            tunnel.inTunnel = true;
-            tunnel.tunnelMoveDir = Vector3.Normalize(new Vector3(rb.velocity.x, rb.velocity.y, 0));
-            rb.useGravity = false;
-            rb.velocity = Vector3.zero;
-            dash.dashesRemaining = dash.maxDashes;
-            dash.dashDelayTimer = 0;
-            jump.jumpDelayTimer = 0;
-            mr.material.SetColor("_Color", Color.white);
+            if (!tunnel.inTunnel)
+            {
+                tunnel.inTunnel = true;
+                tunnel.tunnelMoveDir = Vector3.Normalize(new Vector3(rb.velocity.x, rb.velocity.y, 0));
+                rb.useGravity = false;
+                rb.velocity = Vector3.zero;
+                dash.dashDelayTimer = 0;
+                jump.jumpDelayTimer = 0;
+                dash.dashesRemaining = dash.maxDashes;
+                jump.jumpsRemaining = jump.maxJumps;
+                for (int i = 0; i < dash.maxDashes; i++)
+                {
+                    dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
+                }
+                mr.material.SetColor("_Color", Color.white);
+            }
         }
         else
         {
