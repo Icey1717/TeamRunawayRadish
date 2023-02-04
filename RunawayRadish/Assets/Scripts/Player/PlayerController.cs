@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
     public class DashVar
     {
         public directionEnum direction = directionEnum.omnidirectional;
+        public dashEnum dashOnGround = dashEnum.sprint;
         public float dashPower = 5f;
         public float sprintMultiplier = 1.5f;
         [HideInInspector]
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public enum directionEnum {horizontal,vertical,omnidirectional };
+    public enum dashEnum { dashOnGround, sprint};
 
     public PhysicsVar physics;
     [System.Serializable]
@@ -303,27 +305,50 @@ public class PlayerController : MonoBehaviour
             dash.dashDelayTimer -= Time.deltaTime;
         else
             mr.material.SetColor("_Color", Color.white);
-        if (physics.onGround)
+        if (dash.dashOnGround == dashEnum.sprint)
         {
-            //dash.dashDelayTimer = 0;
-            dash.dashesRemaining = dash.maxDashes;
-            for (int i = 0; i < dash.maxDashes; i++)
+            if (physics.onGround)
             {
-                dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
+                //dash.dashDelayTimer = 0;
+                dash.dashesRemaining = dash.maxDashes;
+                for (int i = 0; i < dash.maxDashes; i++)
+                {
+                    dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
+                }
+
             }
-            
+            else
+            {
+                dash.sprintActive = false;
+                if (Input.GetButtonDown("Dash"))
+                    DashPress(inputDir);
+            }
+
+
+            if (Input.GetButton("Dash"))
+                DashCharge();
+            else
+                dash.sprintActive = false;
         }
         else
         {
-            dash.sprintActive = false;
+            if (physics.onGround)
+            {
+                //dash.dashDelayTimer = 0;
+                if (dash.dashDelayTimer <= 0)
+                {
+                    dash.dashesRemaining = dash.maxDashes;
+                    for (int i = 0; i < dash.maxDashes; i++)
+                    {
+                        dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
+                    }
+                }
+
+            }
+
             if (Input.GetButtonDown("Dash"))
                 DashPress(inputDir);
         }
-
-        if (Input.GetButton("Dash"))
-            DashCharge();
-        else
-            dash.sprintActive = false;
 
         if (Input.GetButtonUp("Dash"))
             DashRelease();
@@ -507,15 +532,23 @@ public class PlayerController : MonoBehaviour
     {
         if (dash.dashDelayTimer > 0)
         {
-            Vector3 normal = Vector3.zero;
-            foreach (var item in collision.contacts)
+            if (collision.collider.tag == "DashBreakable")
             {
-                normal += item.normal;
+                collision.collider.gameObject.SetActive(false);
+                rb.velocity = physics.prevVelocity[1];
             }
-            normal /= collision.contacts.Length;
-            Vector3 force = Vector3.Reflect(physics.prevVelocity[1],normal) * dash.bounceMultiplier;
-            rb.velocity = Vector3.zero;
-            rb.AddForce(force, ForceMode.Impulse);
+            else
+            {
+                Vector3 normal = Vector3.zero;
+                foreach (var item in collision.contacts)
+                {
+                    normal += item.normal;
+                }
+                normal /= collision.contacts.Length;
+                Vector3 force = Vector3.Reflect(physics.prevVelocity[1], normal) * dash.bounceMultiplier;
+                rb.velocity = Vector3.zero;
+                rb.AddForce(force, ForceMode.Impulse);
+            }
         }
     }
 
