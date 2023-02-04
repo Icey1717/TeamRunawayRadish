@@ -21,6 +21,12 @@ public class PlayerController : MonoBehaviour
         public float moveSpeed;
         public float maxSpeed;
         public float velocityOpposition;
+        [HideInInspector]
+        public float disabledMovementTimer = 0;
+        [Tooltip("How Long Before The Player Can Be Launched By Other Objects Again")]
+        public float launchDelay = 0.25f;
+        [HideInInspector]
+        public float launchDelayTimer = 0;
     }
     public JumpVar jump;
     [System.Serializable]
@@ -40,6 +46,7 @@ public class PlayerController : MonoBehaviour
         public float jumpDelay = 0.2f;
         [HideInInspector]
         public float jumpDelayTimer = 0;
+        
     }
 
     public DashVar dash;
@@ -54,9 +61,15 @@ public class PlayerController : MonoBehaviour
         public int dashesRemaining = 0;
         public int maxDashes = 2;
 
-        public float dashDelay = 0.2f;
+        public float dashDelay = 0.7f;
         [HideInInspector]
         public float dashDelayTimer = 0;
+        public Transform dashCounterHolder;
+
+        public Color dashColor = Color.cyan;
+        public float bounceMultiplier = 2;
+
+       
     }
 
     public PhysicsVar physics;
@@ -69,9 +82,12 @@ public class PlayerController : MonoBehaviour
         public float groundDetectionDist = 0.55f;
         public LayerMask groundLayers;
         public float zLevelChangeRate = 3;
+        [HideInInspector]
+        public Vector3[] prevVelocity = new Vector3[2];
     }
 
     public Rigidbody rb;
+    public MeshRenderer mr;
 
     private float curZLevel = 0;
     public float tarZLevel = 0;
@@ -85,17 +101,20 @@ public class PlayerController : MonoBehaviour
         if (!programmerAnimation)
             animator.enabled = false;
     }
-    void FixedUpdate()
-    {
-
-    }
 
     private void Update()
     {
-        ZTrackUpdate();
         GroundDetection();
 
         PlayerInput();
+    }
+
+    private void FixedUpdate()
+    {
+        ZTrackUpdate();
+
+        physics.prevVelocity[1] = physics.prevVelocity[0];
+        physics.prevVelocity[0] = rb.velocity;
     }
 
     //Input
@@ -103,12 +122,20 @@ public class PlayerController : MonoBehaviour
     {
         //2D Movement
         Vector2 inputDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        Movement(inputDir);
 
-        DashController(inputDir);
+        if (movement.disabledMovementTimer <= 0)
+        {
+            if (dash.dashDelayTimer <= 0)
+                Movement(inputDir);
 
-        JumpController();
-        
+            DashController(inputDir);
+
+            JumpController();
+        }
+        else
+            movement.disabledMovementTimer -= Time.deltaTime;
+        if (movement.launchDelayTimer > 0)
+            movement.launchDelayTimer -= Time.deltaTime;
     }
 
     //Movement
@@ -126,7 +153,7 @@ public class PlayerController : MonoBehaviour
         moveDirV3.x -= rb.velocity.x * movement.velocityOpposition;
 
         rb.AddForce(moveDirV3);
-        rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -tempMaxSpeed, tempMaxSpeed),rb.velocity.y,rb.velocity.z);
+        rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -tempMaxSpeed, tempMaxSpeed), rb.velocity.y, rb.velocity.z);
     }
 
     //Jumping
@@ -156,17 +183,23 @@ public class PlayerController : MonoBehaviour
     {
         if (jump.jumpsRemaining > 0)
         {
+            //Big Jump
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(jump.basePower * rb.transform.up, ForceMode.Impulse);
+
+            //Jump Limiters
             jump.jumpDelayTimer = jump.jumpDelay;
             jump.holdTimer = jump.holdMax;
             jump.canHold = true;
             jump.jumpsRemaining--;
+
+            //Visual Cues
             if (programmerAnimation)
                 animator.Play("Jump");
         }
     }
 
+    //This is for making jumps bigger
     void JumpCharge()
     {
         if (jump.canHold)
@@ -187,9 +220,19 @@ public class PlayerController : MonoBehaviour
     //Dashing
     void DashController(Vector2 inputDir)
     {
+        if (dash.dashDelayTimer > 0)
+            dash.dashDelayTimer -= Time.deltaTime;
+        else
+            mr.material.SetColor("_Color", Color.white);
         if (physics.onGround)
         {
+            //dash.dashDelayTimer = 0;
             dash.dashesRemaining = dash.maxDashes;
+            for (int i = 0; i < dash.maxDashes; i++)
+            {
+                dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
+            }
+            
         }
         else
         {
@@ -197,6 +240,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Dash"))
                 DashPress(inputDir);
         }
+
         if (Input.GetButton("Dash"))
             DashCharge();
         else
@@ -207,11 +251,24 @@ public class PlayerController : MonoBehaviour
     }
     void DashPress(Vector2 moveDir)
     {
-        if (dash.dashesRemaining > 0)
+        if (dash.dashesRemaining > 0 && dash.dashDelayTimer <= 0 && moveDir != Vector2.zero)
         {
-            Vector3 forceDir = new Vector3(moveDir.x, moveDir.y, 0);
+            //Force PUUUUUSH
+            rb.velocity = Vector3.zero;
+            Vector3 forceDir = Vector3.Normalize(new Vector3(moveDir.x, moveDir.y, 0));
             rb.AddForce(forceDir * dash.dashPower, ForceMode.Impulse);
+
+            //Dash Limiters
             dash.dashesRemaining--;
+            dash.dashDelayTimer = dash.dashDelay;
+
+            //Visual Cues
+            mr.material.SetColor("_Color", dash.dashColor);
+            for (int i = 0; i < dash.maxDashes; i++)
+            {
+                if (dash.dashesRemaining == i)
+                    dash.dashCounterHolder.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
     void DashCharge()
@@ -238,6 +295,10 @@ public class PlayerController : MonoBehaviour
     {
         tarZLevel = z;
     }
+    public void ChangeTargetZLevelSpeed(float z)
+    {
+        physics.zLevelChangeRate = z;
+    }
 
     //Physics
     void GroundDetection()
@@ -257,5 +318,40 @@ public class PlayerController : MonoBehaviour
             }
         }
         physics.onGround = tempOnGround;
+    }
+
+    public void DisableInteraction (float timer)
+    {
+        movement.disabledMovementTimer = timer;
+    }
+
+    public void Launch (Vector3 force, float timer)
+    {
+        if (movement.launchDelayTimer <= 0)
+        {
+            rb.velocity = Vector3.zero;
+            rb.AddForce(force, ForceMode.Impulse);
+            DisableInteraction(timer);
+            movement.launchDelayTimer = movement.launchDelay;
+            dash.dashDelayTimer = 0;
+            jump.jumpDelayTimer = 0;
+            
+        }
+    }
+
+    public void CollisionEnter(Collision collision)
+    {
+        if (dash.dashDelayTimer > 0)
+        {
+            Vector3 normal = Vector3.zero;
+            foreach (var item in collision.contacts)
+            {
+                normal += item.normal;
+            }
+            normal /= collision.contacts.Length;
+            Vector3 force = Vector3.Reflect(physics.prevVelocity[1],normal) * dash.bounceMultiplier;
+            rb.velocity = Vector3.zero;
+            rb.AddForce(force, ForceMode.Impulse);
+        }
     }
 }
