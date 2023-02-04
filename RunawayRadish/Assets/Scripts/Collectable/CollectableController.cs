@@ -9,8 +9,8 @@ public class CollectableController : MonoBehaviour
         Waiting,
         Following,
     }
-
-    GameObject targetObject;
+    [HideInInspector]
+    public GameObject targetObject;
     FollowerTracker tracker;
 
     Queue<Vector3> TrackedPositions = new Queue<Vector3>();
@@ -58,6 +58,7 @@ public class CollectableController : MonoBehaviour
             collider.enabled = false;
 
             PlayerController.followerAmount++;
+            PlayerController.followers.Add(this);
         }
     }
 }

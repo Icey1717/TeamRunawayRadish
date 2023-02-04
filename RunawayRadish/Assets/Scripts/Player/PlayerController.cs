@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 	private AudioSource audioSource;
 
     public static int followerAmount = 0;
+    public static List<CollectableController> followers = new List<CollectableController>();
 
 	[System.Serializable]
     public class MovementVar
