@@ -16,10 +16,11 @@ public class PlayerController : MonoBehaviour
     public bool programmerAnimation;
     public Animator animator;
     public MovementVar movement;
+	private AudioSource audioSource;
 
     public static int followerAmount = 0;
 
-    [System.Serializable]
+	[System.Serializable]
     public class MovementVar
     {
         public float moveSpeed;
@@ -31,7 +32,9 @@ public class PlayerController : MonoBehaviour
         public float launchDelay = 0.25f;
         [HideInInspector]
         public float launchDelayTimer = 0;
-    }
+		[SerializeField]
+		public List<AudioClip> launchSounds;
+	}
 
     public TunnelVar tunnel;
     [System.Serializable]
@@ -82,8 +85,10 @@ public class PlayerController : MonoBehaviour
         public float jumpDelay = 0.2f;
         [HideInInspector]
         public float jumpDelayTimer = 0;
+		[SerializeField]
+		public List<AudioClip> jumpSounds;
 
-    }
+	}
 
     public DashVar dash;
     [System.Serializable]
@@ -123,7 +128,9 @@ public class PlayerController : MonoBehaviour
         public float zLevelChangeRate = 3;
         [HideInInspector]
         public Vector3[] prevVelocity = new Vector3[2];
-    }
+		[SerializeField]
+		public List<AudioClip> landSounds;
+	}
 
     public Rigidbody rb;
     public MeshRenderer mr;
@@ -131,6 +138,11 @@ public class PlayerController : MonoBehaviour
     private float curZLevel = 0;
     public float tarZLevel = 0;
 
+	void PlaySoundInList(List<AudioClip> list)
+	{
+		audioSource.clip = list[Random.Range(0, list.Count - 1)];
+		audioSource.Play();
+	}
 
     void Start()
     {
@@ -139,7 +151,9 @@ public class PlayerController : MonoBehaviour
 
         if (!programmerAnimation)
             animator.enabled = false;
-    }
+
+		audioSource = GetComponent<AudioSource>();
+	}
 
     private void Update()
     {
@@ -258,8 +272,10 @@ public class PlayerController : MonoBehaviour
             jump.canHold = true;
             jump.jumpsRemaining--;
 
-            //Visual Cues
-            if (programmerAnimation)
+			PlaySoundInList(jump.jumpSounds);
+
+			//Visual Cues
+			if (programmerAnimation)
                 animator.Play("Jump");
         }
     }
@@ -457,7 +473,13 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+		bool prevOnGround = physics.onGround;
         physics.onGround = tempOnGround;
+
+		if (prevOnGround != physics.onGround && rb.velocity.y < 0.0f)
+		{
+			PlaySoundInList(physics.landSounds);
+		}
     }
 
     public void DisableInteraction (float timer)
@@ -475,8 +497,10 @@ public class PlayerController : MonoBehaviour
             movement.launchDelayTimer = movement.launchDelay;
             dash.dashDelayTimer = 0;
             jump.jumpDelayTimer = 0;
-            
-        }
+
+			PlaySoundInList(movement.launchSounds);
+
+		}
     }
 
     public void CollisionEnter(Collision collision)
