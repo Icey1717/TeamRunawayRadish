@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     {
         public float moveSpeed;
         public float maxSpeed;
-        public float velocityOpposition;
         [HideInInspector]
         public float disabledMovementTimer = 0;
         [Tooltip("How Long Before The Player Can Be Launched By Other Objects Again")]
@@ -64,6 +63,10 @@ public class PlayerController : MonoBehaviour
         [HideInInspector]
         public float swingDist;
         public float minSwingDist = 1;
+
+        public AnimationCurve velocityOppositionAfterSwing;
+        [System.NonSerialized]
+        public float lastSwingTime = -100.0f;
 
         public LineRenderer LR;
     }
@@ -220,7 +223,8 @@ public class PlayerController : MonoBehaviour
             tempMaxSpeed *= dash.sprintMultiplier;
         }
 
-        moveDirV3.x -= rb.velocity.x * movement.velocityOpposition;
+        float velocityOpposition = swing.velocityOppositionAfterSwing.Evaluate(Time.fixedTime - swing.lastSwingTime);
+        moveDirV3.x -= rb.velocity.x * velocityOpposition;
 
         rb.AddForce(moveDirV3);
         rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -tempMaxSpeed, tempMaxSpeed), rb.velocity.y, rb.velocity.z);
@@ -461,7 +465,9 @@ public class PlayerController : MonoBehaviour
         Vector3 launchPower = Vector3.Normalize(rb.velocity) * swing.launchForce;
         rb.velocity = Vector3.zero;
         rb.AddForce(launchPower, ForceMode.Impulse);
-        DisableInteraction(0.15f);
+
+        swing.lastSwingTime = Time.fixedTime;
+        //DisableInteraction(0.15f);
     }
 
     //Z Track
