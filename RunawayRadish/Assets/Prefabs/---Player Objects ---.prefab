@@ -519,9 +519,16 @@ MonoBehaviour:
     disabledMovementTimer: 0
     launchDelay: 0.25
     launchDelayTimer: 0
+  tunnel:
+    tunnelMoveDir: {x: 0, y: 0, z: 0}
+    launchForce: 8
+    tunnelSpeed: 5
+    turnSpeed: 3
+    inTunnel: 0
   jump:
+    onlyJumpOnGround: 1
     basePower: 6
-    holdPower: 6
+    holdPower: 10
     holdIgnore: 0.1
     holdMax: 0.2
     holdTimer: 0
@@ -543,7 +550,7 @@ MonoBehaviour:
     bounceMultiplier: 0.7
   physics:
     onGround: 0
-    radius: 0.5
+    radius: 0.4
     groundDetectionDist: 0.55
     groundLayers:
       serializedVersion: 2

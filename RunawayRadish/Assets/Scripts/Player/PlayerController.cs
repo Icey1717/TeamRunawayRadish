@@ -28,10 +28,24 @@ public class PlayerController : MonoBehaviour
         [HideInInspector]
         public float launchDelayTimer = 0;
     }
+
+    public TunnelVar tunnel;
+    [System.Serializable]
+    public class TunnelVar
+    {
+        [HideInInspector]
+        public Vector3 tunnelMoveDir;
+        public float launchForce;
+        public float tunnelSpeed;
+        public float turnSpeed;
+        [HideInInspector]
+        public bool inTunnel = false;
+    }
     public JumpVar jump;
     [System.Serializable]
     public class JumpVar
     {
+        public bool onlyJumpOnGround = true;
         public float basePower = 7f;
         public float holdPower = 2f;
         public float holdIgnore = 0.05f;
@@ -122,20 +136,24 @@ public class PlayerController : MonoBehaviour
     {
         //2D Movement
         Vector2 inputDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-        if (movement.disabledMovementTimer <= 0)
+        if (!tunnel.inTunnel)
         {
-            if (dash.dashDelayTimer <= 0)
-                Movement(inputDir);
+            if (movement.disabledMovementTimer <= 0)
+            {
+                if (dash.dashDelayTimer <= 0)
+                    Movement(inputDir);
 
-            DashController(inputDir);
+                DashController(inputDir);
 
-            JumpController();
+                JumpController();
+            }
+            else
+                movement.disabledMovementTimer -= Time.deltaTime;
+            if (movement.launchDelayTimer > 0)
+                movement.launchDelayTimer -= Time.deltaTime;
         }
         else
-            movement.disabledMovementTimer -= Time.deltaTime;
-        if (movement.launchDelayTimer > 0)
-            movement.launchDelayTimer -= Time.deltaTime;
+            TunnelMovement(inputDir);
     }
 
     //Movement
@@ -156,6 +174,15 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -tempMaxSpeed, tempMaxSpeed), rb.velocity.y, rb.velocity.z);
     }
 
+    void TunnelMovement(Vector2 inputDir)
+    {
+        dash.dashesRemaining = dash.maxDashes;
+        if (inputDir.magnitude > 0.1f)
+            tunnel.tunnelMoveDir = Vector3.Normalize(new Vector3(Mathf.Lerp(tunnel.tunnelMoveDir.x,inputDir.x,Time.deltaTime * tunnel.turnSpeed), Mathf.Lerp(tunnel.tunnelMoveDir.y, inputDir.y, Time.deltaTime * tunnel.turnSpeed), 0));
+        rb.AddForce(tunnel.tunnelMoveDir * tunnel.tunnelSpeed * 10);
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity,tunnel.tunnelSpeed);
+    }
+
     //Jumping
     void JumpController()
     {
@@ -170,7 +197,10 @@ public class PlayerController : MonoBehaviour
                 jump.jumpsRemaining = jump.maxJumps;
                 
             }
-            if (Input.GetButtonDown("Jump"))
+            bool canJump = true;
+            if (jump.onlyJumpOnGround && !physics.onGround)
+                canJump = false;
+            if (Input.GetButtonDown("Jump") && canJump)
                 JumpPress();
         }
         
@@ -352,6 +382,30 @@ public class PlayerController : MonoBehaviour
             Vector3 force = Vector3.Reflect(physics.prevVelocity[1],normal) * dash.bounceMultiplier;
             rb.velocity = Vector3.zero;
             rb.AddForce(force, ForceMode.Impulse);
+        }
+    }
+
+    public void TunnelActivate(bool activate)
+    {
+        if (activate)
+        {
+            tunnel.inTunnel = true;
+            tunnel.tunnelMoveDir = Vector3.Normalize(new Vector3(rb.velocity.x, rb.velocity.y, 0));
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            dash.dashesRemaining = dash.maxDashes;
+            dash.dashDelayTimer = 0;
+            jump.jumpDelayTimer = 0;
+            mr.material.SetColor("_Color", Color.white);
+        }
+        else
+        {
+            tunnel.inTunnel = false;
+            Vector3 launchPower = Vector3.Normalize(rb.velocity) * tunnel.launchForce;
+            rb.velocity = Vector3.zero;
+            rb.AddForce(launchPower, ForceMode.Impulse);
+            DisableInteraction(0.15f);
+            rb.useGravity = true;
         }
     }
 }
