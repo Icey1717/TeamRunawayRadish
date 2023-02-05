@@ -134,7 +134,7 @@ Material:
     - _ShadingAdd: 1
     - _ShadingBias: 0.05
     - _ShadingVal: 0.51
-    - _ShadowStrength: 0.481
+    - _ShadowStrength: 0.597
     - _ShadowVal: -2.29
     - _SheenVal: 0
     - _SingleTint: 1
