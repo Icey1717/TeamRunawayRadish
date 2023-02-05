@@ -47,7 +47,9 @@ public class PlayerController : MonoBehaviour
         public float turnSpeed;
         [HideInInspector]
         public bool inTunnel = false;
-    }
+		[SerializeField]
+		public AudioClip digSound;
+	}
     public SwingVar swing;
     [System.Serializable]
     public class SwingVar
@@ -69,7 +71,13 @@ public class PlayerController : MonoBehaviour
         public float lastSwingTime = -100.0f;
 
         public LineRenderer LR;
-    }
+
+		[SerializeField]
+		public List<AudioClip> swingSounds;
+
+		[SerializeField]
+		public List<AudioClip> releaseSounds;
+	}
     public JumpVar jump;
     [System.Serializable]
     public class JumpVar
@@ -116,8 +124,8 @@ public class PlayerController : MonoBehaviour
         public Color dashColor = Color.cyan;
         public float bounceMultiplier = 2;
 
-
-    }
+		public List<AudioClip> dashSounds;
+	}
 
     public enum directionEnum {horizontal,vertical,omnidirectional };
     public enum dashEnum { dashOnGround, sprint};
@@ -150,7 +158,20 @@ public class PlayerController : MonoBehaviour
 		audioSource.Play();
 	}
 
-    void Start()
+	void PlaySoundLooping(AudioClip clip)
+	{
+		audioSource.clip = clip;
+		audioSource.loop = true;
+		audioSource.Play();
+	}
+
+	void StopSoundLooping()
+	{
+		audioSource.loop = false;
+		audioSource.Stop();
+	}
+
+	void Start()
     {
         tarZLevel = rb.transform.position.z;
         curZLevel = rb.transform.position.z;
@@ -366,8 +387,10 @@ public class PlayerController : MonoBehaviour
             moveDir.x = 0;
         if (dash.dashesRemaining > 0 && dash.dashDelayTimer <= 0 && moveDir != Vector2.zero)
         {
-            //Force PUUUUUSH
-            rb.velocity = Vector3.zero;
+			PlaySoundInList(dash.dashSounds);
+
+			//Force PUUUUUSH
+			rb.velocity = Vector3.zero;
             Vector3 forceDir = Vector3.Normalize(new Vector3(moveDir.x, moveDir.y, 0));
             
             rb.AddForce(forceDir * dash.dashPower, ForceMode.Impulse);
@@ -428,7 +451,8 @@ public class PlayerController : MonoBehaviour
     }
     void SwingPress()
     {
-        rb.useGravity = false;
+		PlaySoundInList(swing.swingSounds);
+		rb.useGravity = false;
         swing.swinging = true;
         Vector3 dir = swing.swingPivot.position - rb.position;
             Vector3 cw = Vector3.Normalize(new Vector3(dir.y, -dir.x, 0));
@@ -458,7 +482,8 @@ public class PlayerController : MonoBehaviour
 
     void SwingRelease()
     {
-        swing.swinging = false;
+		PlaySoundInList(swing.releaseSounds);
+		swing.swinging = false;
         swing.LR.enabled = false;
         rb.useGravity = true;
 
@@ -597,7 +622,9 @@ public class PlayerController : MonoBehaviour
                     dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
                 }
                 mr.material.SetColor("_Color", Color.white);
-            }
+
+				PlaySoundLooping(tunnel.digSound);
+			}
         }
         else
         {
@@ -607,6 +634,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(launchPower, ForceMode.Impulse);
             DisableInteraction(0.15f);
             rb.useGravity = true;
-        }
+			StopSoundLooping();
+		}
     }
 }
