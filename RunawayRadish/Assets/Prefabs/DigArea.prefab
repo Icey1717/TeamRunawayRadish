@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4929350250005188548}
   m_Layer: 6
   m_Name: DigArea
-  m_TagString: Untagged
+  m_TagString: Diggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

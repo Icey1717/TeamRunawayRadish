@@ -144,7 +144,10 @@ public class PlayerController : MonoBehaviour
         public Vector3[] prevVelocity = new Vector3[2];
 		[SerializeField]
 		public List<AudioClip> landSounds;
-	}
+
+        [HideInInspector]
+        public Vector3 lastGroundedPos;
+    }
 
     public Rigidbody rb;
     public MeshRenderer mr;
@@ -518,18 +521,27 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit[] hits = Physics.SphereCastAll(rb.transform.position, physics.radius, Vector3.down, physics.groundDetectionDist, physics.groundLayers);
         bool tempOnGround = false;
+        bool isGroundDiggable = false;
         foreach (var item in hits)
         {
             switch (item.transform.tag)
             {
                 case "Ground":
                     if (rb.velocity.y <= 0.2f)
+					{
                         tempOnGround = true;
+                        if (item.transform.parent)
+						{
+                            isGroundDiggable |= item.transform.parent.gameObject.CompareTag("Diggable");
+						}
+					}
                     break;
                 default:
                     break;
             }
         }
+        
+
 		bool prevOnGround = physics.onGround;
         physics.onGround = tempOnGround;
 
@@ -537,9 +549,21 @@ public class PlayerController : MonoBehaviour
 		{
 			PlaySoundInList(physics.landSounds);
 		}
+
+        if (physics.onGround && !tunnel.inTunnel && !isGroundDiggable)
+		{
+            UnityEngine.Debug.Log("Grounded pos: " + rb.position);
+            physics.lastGroundedPos = rb.position;
+		}
     }
 
-    public void DisableInteraction (float timer)
+    public void ResetToLastGroundedPosition()
+	{
+        rb.position = physics.lastGroundedPos;
+        rb.velocity = Vector3.zero;
+	}
+
+	public void DisableInteraction (float timer)
     {
         movement.disabledMovementTimer = timer;
     }
