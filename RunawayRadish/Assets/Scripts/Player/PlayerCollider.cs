@@ -28,4 +28,13 @@ public class PlayerCollider : MonoBehaviour
     {
        controller.CollisionEnter(collision);
     }
+
+    public void OnTriggerStay(Collider other)
+    {
+        controller.TriggerStay(other);
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        controller.TriggerExit(other);
+    }
 }

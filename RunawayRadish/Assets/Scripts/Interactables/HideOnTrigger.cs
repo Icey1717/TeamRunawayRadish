@@ -6,6 +6,7 @@ public class HideOnTrigger : MonoBehaviour
 {
 
     public float reappearTime = 1;
+    public float reappearTimerIncreaseWithFollower = 0.1f;
     private float _reappearTimer = 0;
 
     public MeshRenderer mr;
@@ -29,7 +30,7 @@ public class HideOnTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            _reappearTimer = reappearTime;
+            _reappearTimer = reappearTime + (reappearTimerIncreaseWithFollower * PlayerController.followerAmount);
             mr.enabled = false;
         }
     }

@@ -21,7 +21,6 @@ public class PrefabField : MonoBehaviour
             {
                 for (int z = 0; z < createAmount.z; z++)
                 {
-                    Debug.Log(x + " " + y + " " + z);
                     GameObject GO = Instantiate(prefab, transform);
                     Vector3 tarPos = Vector3.zero;
                     tarPos.x = bounds.bounds.min.x + (((bounds.bounds.max.x - bounds.bounds.min.x) / createAmount.x) * x) + offset.x;
