@@ -8,9 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ground
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 86914ce85b2c1c942bbf273dcefccf47, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _GRAD_XY_ON
+  - _NOISETEXTOGGLE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -48,11 +50,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 95b43aa46a68d0c4eb5ce453bfc58a2b, type: 3}
+        m_Scale: {x: 0.2, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -62,19 +72,39 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _GRAD_XY: 1
     - _GlossMapScale: 1
-    - _Glossiness: 0.3
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Grad_Blur: 0
+    - _Grad_Height: 1.81
     - _Metallic: 0
     - _Mode: 0
+    - _NoiseTexStrength: 1
+    - _NoiseTexToggle: 1
     - _OcclusionStrength: 1
+    - _OutlineTintStrength: 0.5
     - _Parallax: 0.02
+    - _ShadingAdd: 1.54
+    - _ShadingBias: 0.27
+    - _ShadingVal: 1
+    - _ShadowStrength: 0.58
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _StarsScale: 0.5
+    - _StarsWarp: 0.5
     - _UVSec: 0
     - _ZWrite: 1
+    - __dirty: 0
     m_Colors:
-    - _Color: {r: 0.6415094, g: 0.54417455, b: 0.47608873, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadingTint: {r: 0.037320513, g: 0.037320513, b: 0.16037735, a: 0}
+    - _TintBody: {r: 0.5566038, g: 0.45508483, b: 0.45508483, a: 0}
+    - _TintFeet: {r: 0.16981131, g: 0.14044142, b: 0.14044142, a: 0}
+    - _TintGradient: {r: 0.19607842, g: 0.18431368, b: 0.18431368, a: 1}
+    - _TintMain: {r: 0.1981132, g: 0.18814524, b: 0.18814524, a: 0}
+    - _TintMist: {r: 1, g: 1, b: 1, a: 0}
+    - _TintOutline: {r: 0.57547164, g: 0.57547164, b: 0.57547164, a: 0}
   m_BuildTextureStacks: []
