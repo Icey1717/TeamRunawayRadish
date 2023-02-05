@@ -586,7 +586,6 @@ MonoBehaviour:
   movement:
     moveSpeed: 5
     maxSpeed: 5
-    velocityOpposition: 0
     disabledMovementTimer: 0
     launchDelay: 0.25
     launchDelayTimer: 0
@@ -688,6 +687,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 53edf65fc25e99f4386ab45d2acb7249, type: 3}
     - {fileID: 8300000, guid: 37c3b3a0f7f24274ca77dfb49e61344f, type: 3}
     - {fileID: 8300000, guid: 01663c8765685014b9ead1f245923eb6, type: 3}
+    lastGroundedPos: {x: 0, y: 0, z: 0}
   rb: {fileID: 2140909626350897867}
   mr: {fileID: 842514454}
   tarZLevel: 0
@@ -747,7 +747,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.74
       inSlope: 0
       outSlope: 0
       tangentMode: 0
