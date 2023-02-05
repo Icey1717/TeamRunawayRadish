@@ -9,17 +9,55 @@ public class CollectableController : MonoBehaviour
         Waiting,
         Following,
     }
+
     [HideInInspector]
     public GameObject targetObject;
     FollowerTracker tracker;
+	private AudioSource audioSource;
 
-    Queue<Vector3> TrackedPositions = new Queue<Vector3>();
+	Queue<Vector3> TrackedPositions = new Queue<Vector3>();
 
-    // Start is called before the first frame update
-    void Start()
+	[SerializeField]
+	public List<AudioClip> collectSounds;
+
+	[SerializeField]
+	public AudioClip followSound;
+
+	[SerializeField]
+	public List<AudioClip> proximitySounds;
+
+	public float bobSpeed = 2.0f;
+	public float bobHeight = 0.1f;
+
+	float time;
+
+	void PlaySoundInList(List<AudioClip> list)
+	{
+		audioSource.clip = list[Random.Range(0, list.Count - 1)];
+		audioSource.Play();
+	}
+
+	void PlaySoundLooping(AudioClip clip)
+	{
+		if (audioSource.loop != true)
+		{
+			audioSource.clip = clip;
+			audioSource.loop = true;
+			audioSource.Play();
+		}
+	}
+
+	public void StopSoundLooping()
+	{
+		audioSource.loop = false;
+		audioSource.Stop();
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
-        
-    }
+		audioSource = GetComponent<AudioSource>();
+	}
     
     // Update is called once per frame
     void Update()
@@ -32,8 +70,25 @@ public class CollectableController : MonoBehaviour
 
                 if (TrackedPositions.Count > tracker.chainLength)
                 {
-                    Vector3 targetPosition = TrackedPositions.Dequeue();
+					Vector3 lastPos = transform.position;
+
+					Vector3 targetPosition = TrackedPositions.Dequeue();
                     transform.position = targetPosition;
+
+					if ((lastPos - targetPosition).magnitude > 0.001f)
+					{
+						PlaySoundLooping(followSound);
+					}
+					else
+					{
+						StopSoundLooping();
+					}
+
+					if ((targetObject.transform.position - targetPosition).magnitude < 0.01f)
+					{
+						// Idle mode
+						//transform.RotateAround(pivot.position, Vector3.up, speed * Time.deltaTime);
+					}
                 }
                 else if (TrackedPositions.Count > 0)
                 {
@@ -42,7 +97,11 @@ public class CollectableController : MonoBehaviour
                 }
             }
         }
-    }
+
+		//time += Time.deltaTime * bobSpeed;
+		//float yOffset = Mathf.Sin(time) * bobHeight;
+		//transform.position += new Vector3(0.0f, yOffset, 0.0f);
+	}
 
     void OnTriggerEnter(Collider collision)
     {
@@ -51,6 +110,8 @@ public class CollectableController : MonoBehaviour
             tracker = collision.gameObject.GetComponent<FollowerTracker>();
 
             Debug.Log("Getting the follower tracker from: " + collision.gameObject.name);
+
+			PlaySoundInList(collectSounds);
 
             targetObject = tracker.GetNextFollower(transform.gameObject);
 
