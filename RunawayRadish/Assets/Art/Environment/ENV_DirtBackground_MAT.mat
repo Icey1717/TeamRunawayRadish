@@ -71,8 +71,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Grad_Blur: 2.3
-    - _Grad_Height: 2.68
+    - _Grad_Blur: 3.22
+    - _Grad_Height: 2.41
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -94,8 +94,8 @@ Material:
     - _ShadingTint: {r: 0.001533254, g: 0, b: 0.13333334, a: 0}
     - _TintBody: {r: 0.5566038, g: 0.45508483, b: 0.45508483, a: 0}
     - _TintFeet: {r: 0.16981131, g: 0.14044142, b: 0.14044142, a: 0}
-    - _TintGradient: {r: 0.27450982, g: 0.26666668, b: 0.2675762, a: 0}
-    - _TintMain: {r: 0.1981132, g: 0.18440725, b: 0.18440725, a: 0}
+    - _TintGradient: {r: 0.2735849, g: 0.2391717, b: 0.2391717, a: 1}
+    - _TintMain: {r: 0.4056604, g: 0.3775958, b: 0.3775958, a: 0}
     - _TintMist: {r: 1, g: 1, b: 1, a: 0}
     - _TintOutline: {r: 0.57547164, g: 0.57547164, b: 0.57547164, a: 0}
   m_BuildTextureStacks: []
