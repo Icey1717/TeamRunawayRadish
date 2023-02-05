@@ -79,11 +79,6 @@ public class FinishLine : MonoBehaviour
                     curCollectible += PlayerController.followerAmount;
                     PlayerController.followerAmount = 0;
 
-					for (int i = 0; i < PlayerController.followers.Count; i++)
-					{
-						PlayerController.followers[i].StopSoundLooping();
-					}
-
                     PlayerController.followers[0].targetObject = gameObject;
                     PlayerController.followers = new List<CollectableController>();
                     string text = "";

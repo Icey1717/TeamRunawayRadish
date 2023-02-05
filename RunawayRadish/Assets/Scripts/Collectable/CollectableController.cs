@@ -31,6 +31,11 @@ public class CollectableController : MonoBehaviour
 
 	float time;
 
+	public float minCryTime = 5f;
+	public float maxCryTime = 10f;
+
+	private float timer;
+
 	void PlaySoundInList(List<AudioClip> list)
 	{
 		audioSource.clip = list[Random.Range(0, list.Count - 1)];
@@ -57,12 +62,15 @@ public class CollectableController : MonoBehaviour
 	void Start()
     {
 		audioSource = GetComponent<AudioSource>();
+		timer = Random.Range(minCryTime, maxCryTime);
 	}
     
     // Update is called once per frame
     void Update()
     {
-        if (targetObject != null)
+		time += Time.deltaTime * bobSpeed;
+
+		if (targetObject != null)
         {
             if ((targetObject.transform.position - transform.position).magnitude > tracker.minDistance)
             {
@@ -75,32 +83,45 @@ public class CollectableController : MonoBehaviour
 					Vector3 targetPosition = TrackedPositions.Dequeue();
                     transform.position = targetPosition;
 
-					if ((lastPos - targetPosition).magnitude > 0.001f)
-					{
-						PlaySoundLooping(followSound);
-					}
-					else
-					{
-						StopSoundLooping();
-					}
+					//if ((lastPos - targetPosition).magnitude > 0.0f)
+					//{
+					//	PlaySoundLooping(followSound);
+					//}
+					//else
+					//{
+					//	StopSoundLooping();
+					//}
 
 					if ((targetObject.transform.position - targetPosition).magnitude < 0.01f)
 					{
 						// Idle mode
 						//transform.RotateAround(pivot.position, Vector3.up, speed * Time.deltaTime);
 					}
-                }
-                else if (TrackedPositions.Count > 0)
+
+					float yOffset = Mathf.Sin(time) * bobHeight;
+					transform.position += new Vector3(0.0f, yOffset, 0.0f);
+				}
+				else if (TrackedPositions.Count > 0)
                 {
                     Vector3 targetPosition = TrackedPositions.Peek();
                     transform.position = Vector3.Lerp(transform.position, targetPosition, (float)TrackedPositions.Count / (float)tracker.chainLength);
                 }
             }
         }
+		else
+		{
+			timer -= Time.deltaTime;
+			if (timer <= 0f)
+			{
+				PlaySoundInList(proximitySounds);
 
-		//time += Time.deltaTime * bobSpeed;
-		//float yOffset = Mathf.Sin(time) * bobHeight;
-		//transform.position += new Vector3(0.0f, yOffset, 0.0f);
+				// Reset the timer
+				timer = Random.Range(minCryTime, maxCryTime);
+			}
+
+			float yOffset = Mathf.Sin(time) * bobHeight * 0.01f;
+			transform.position += new Vector3(0.0f, yOffset, 0.0f);
+		}
 	}
 
     void OnTriggerEnter(Collider collision)

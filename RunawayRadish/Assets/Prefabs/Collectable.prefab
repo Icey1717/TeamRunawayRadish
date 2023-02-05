@@ -153,9 +153,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6535825f50b7a22408daf1e723df3ea5, type: 3}
   - {fileID: 8300000, guid: 068b9a8d470138647a9604c914c14dcf, type: 3}
   followSound: {fileID: 8300000, guid: c2193aa6d12d2164db10fae45ab75f36, type: 3}
-  proximitySounds: []
+  proximitySounds:
+  - {fileID: 8300000, guid: 30e4f32381335f24aa54d5a45bcde412, type: 3}
+  - {fileID: 8300000, guid: 77e498a6b4bf3f74a8600afcf465f9b3, type: 3}
+  - {fileID: 8300000, guid: ea1b1dfd49c031d49b2bb289233943f6, type: 3}
+  - {fileID: 8300000, guid: f52f0bc4436a71d43be55229ba75e36e, type: 3}
+  - {fileID: 8300000, guid: ee60949fa38b471448962f6f55e5966a, type: 3}
+  - {fileID: 8300000, guid: be5df829293e0874bb99bb64434316f8, type: 3}
+  - {fileID: 8300000, guid: 2d0297ba72d417c4fbdf5a4124573ce4, type: 3}
+  - {fileID: 8300000, guid: 7307f0e051865af42974225a76ed6842, type: 3}
   bobSpeed: 2
   bobHeight: 0.1
+  minCryTime: 10
+  maxCryTime: 30
 --- !u!82 &8036339477866012543
 AudioSource:
   m_ObjectHideFlags: 0

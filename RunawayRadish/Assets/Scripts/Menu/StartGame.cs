@@ -16,6 +16,7 @@ public class StartGame : MonoBehaviour
     {
 		if (Input.anyKey)
 		{
+			GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>().Play();
 			SceneManager.LoadScene("NathanTestScene", LoadSceneMode.Single);
 		}
 	}
