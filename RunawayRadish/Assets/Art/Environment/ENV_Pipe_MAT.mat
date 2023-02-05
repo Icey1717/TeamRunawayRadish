@@ -80,7 +80,7 @@ Material:
     - _Grad_Height: 0.01
     - _Metallic: 0
     - _Mode: 0
-    - _NoiseTexStrength: 0.411
+    - _NoiseTexStrength: 0.299
     - _NoiseTexToggle: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
