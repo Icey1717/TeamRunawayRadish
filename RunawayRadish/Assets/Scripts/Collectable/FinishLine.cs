@@ -121,10 +121,7 @@ public class FinishLine : MonoBehaviour
             temp += minutes.ToString() + ":";
             if (seconds < 10)
                 temp += "0";
-            temp += seconds.ToString() + ":";
-            if (milliseconds < 10)
-                temp += "0";
-            temp += milliseconds.ToString();
+			temp += seconds.ToString();
 
             return temp;
         }
