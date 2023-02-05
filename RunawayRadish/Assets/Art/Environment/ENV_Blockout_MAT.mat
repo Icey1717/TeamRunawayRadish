@@ -162,7 +162,7 @@ Material:
     - _MainTint1: {r: 0.07849761, g: 0.990566, b: 0.084653735, a: 0}
     - _MatcapColor: {r: 1, g: 1, b: 1, a: 0}
     - _SecondaryColor: {r: 0.5566038, g: 0.4441999, b: 0.1969117, a: 1}
-    - _ShadingTint: {r: 0, g: 0, b: 0.7803922, a: 0}
+    - _ShadingTint: {r: 0.3018868, g: 0.22365646, b: 0, a: 0}
     - _ShadowColor: {r: 0.14727469, g: 0.09291561, b: 0.5660378, a: 0}
     - _SheenOrient: {r: -0.5, g: 0.5, b: 0, a: 0}
     - _SheenPan: {r: 0, g: 0, b: 0, a: 0}
