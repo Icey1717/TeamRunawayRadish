@@ -112,5 +112,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reappearTime: 1
-  reappearTimerIncreaseWithFollower: 0.2
   mr: {fileID: 8268381470392754393}

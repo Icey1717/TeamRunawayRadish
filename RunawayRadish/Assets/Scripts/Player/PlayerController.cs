@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,12 +15,7 @@ public class PlayerController : MonoBehaviour
     public bool programmerAnimation;
     public Animator animator;
     public MovementVar movement;
-	private AudioSource audioSource;
-
-    public static int followerAmount = 0;
-    public static List<CollectableController> followers = new List<CollectableController>();
-
-	[System.Serializable]
+    [System.Serializable]
     public class MovementVar
     {
         public float moveSpeed;
@@ -33,9 +27,7 @@ public class PlayerController : MonoBehaviour
         public float launchDelay = 0.25f;
         [HideInInspector]
         public float launchDelayTimer = 0;
-		[SerializeField]
-		public List<AudioClip> launchSounds;
-	}
+    }
 
     public TunnelVar tunnel;
     [System.Serializable]
@@ -48,33 +40,7 @@ public class PlayerController : MonoBehaviour
         public float turnSpeed;
         [HideInInspector]
         public bool inTunnel = false;
-		[SerializeField]
-		public AudioClip digSound;
-	}
-    public SwingVar swing;
-    [System.Serializable]
-    public class SwingVar
-    {
-        [HideInInspector]
-        public Transform swingPivot;
-        public float swingSpeed = 5;
-        public float launchForce = 7;
-        [HideInInspector]
-        public int swingDir = 0;
-        [HideInInspector]
-        public bool swinging = false;
-        [HideInInspector]
-        public float swingDist;
-        public float minSwingDist = 1;
-
-        public LineRenderer LR;
-
-		[SerializeField]
-		public List<AudioClip> swingSounds;
-
-		[SerializeField]
-		public List<AudioClip> releaseSounds;
-	}
+    }
     public JumpVar jump;
     [System.Serializable]
     public class JumpVar
@@ -94,17 +60,13 @@ public class PlayerController : MonoBehaviour
         public float jumpDelay = 0.2f;
         [HideInInspector]
         public float jumpDelayTimer = 0;
-		[SerializeField]
-		public List<AudioClip> jumpSounds;
-
-	}
+        
+    }
 
     public DashVar dash;
     [System.Serializable]
     public class DashVar
     {
-        public directionEnum direction = directionEnum.omnidirectional;
-        public dashEnum dashOnGround = dashEnum.sprint;
         public float dashPower = 5f;
         public float sprintMultiplier = 1.5f;
         [HideInInspector]
@@ -121,11 +83,8 @@ public class PlayerController : MonoBehaviour
         public Color dashColor = Color.cyan;
         public float bounceMultiplier = 2;
 
-		public List<AudioClip> dashSounds;
-	}
-
-    public enum directionEnum {horizontal,vertical,omnidirectional };
-    public enum dashEnum { dashOnGround, sprint};
+       
+    }
 
     public PhysicsVar physics;
     [System.Serializable]
@@ -139,9 +98,7 @@ public class PlayerController : MonoBehaviour
         public float zLevelChangeRate = 3;
         [HideInInspector]
         public Vector3[] prevVelocity = new Vector3[2];
-		[SerializeField]
-		public List<AudioClip> landSounds;
-	}
+    }
 
     public Rigidbody rb;
     public MeshRenderer mr;
@@ -149,36 +106,15 @@ public class PlayerController : MonoBehaviour
     private float curZLevel = 0;
     public float tarZLevel = 0;
 
-	void PlaySoundInList(List<AudioClip> list)
-	{
-		audioSource.clip = list[Random.Range(0, list.Count - 1)];
-		audioSource.loop = false;
-		audioSource.Play();
-	}
 
-	void PlaySoundLooping(AudioClip clip)
-	{
-		audioSource.clip = clip;
-		audioSource.loop = true;
-		audioSource.Play();
-	}
-
-	void StopSoundLooping()
-	{
-		audioSource.loop = false;
-		audioSource.Stop();
-	}
-
-	void Start()
+    void Start()
     {
         tarZLevel = rb.transform.position.z;
         curZLevel = rb.transform.position.z;
 
         if (!programmerAnimation)
             animator.enabled = false;
-
-		audioSource = GetComponent<AudioSource>();
-	}
+    }
 
     private void Update()
     {
@@ -204,25 +140,15 @@ public class PlayerController : MonoBehaviour
         {
             if (movement.disabledMovementTimer <= 0)
             {
-                if (!swing.swinging)
-                {
-                    if (dash.dashDelayTimer <= 0)
-                        Movement(inputDir);
+                if (dash.dashDelayTimer <= 0)
+                    Movement(inputDir);
 
-                    DashController(inputDir);
+                DashController(inputDir);
 
-                    JumpController();
-                }
-
-                    SwingController();
+                JumpController();
             }
             else
-            {
                 movement.disabledMovementTimer -= Time.deltaTime;
-                swing.swinging = false;
-                swing.LR.enabled = false;
-                rb.useGravity = true;
-            }
             if (movement.launchDelayTimer > 0)
                 movement.launchDelayTimer -= Time.deltaTime;
         }
@@ -297,16 +223,15 @@ public class PlayerController : MonoBehaviour
             jump.canHold = true;
             jump.jumpsRemaining--;
 
-			PlaySoundInList(jump.jumpSounds);
-
-			//Visual Cues
-			if (programmerAnimation)
+            //Visual Cues
+            if (programmerAnimation)
                 animator.Play("Jump");
         }
     }
+
+    //This is for making jumps bigger
     void JumpCharge()
     {
-        //This is for making jumps bigger
         if (jump.canHold)
         {
             if (jump.holdTimer < jump.holdMax - jump.holdIgnore)
@@ -316,6 +241,7 @@ public class PlayerController : MonoBehaviour
                 jump.canHold = false;
         }
     }
+
     void JumpRelease()
     {
         jump.canHold = false;
@@ -328,68 +254,38 @@ public class PlayerController : MonoBehaviour
             dash.dashDelayTimer -= Time.deltaTime;
         else
             mr.material.SetColor("_Color", Color.white);
-        if (dash.dashOnGround == dashEnum.sprint)
+        if (physics.onGround)
         {
-            if (physics.onGround)
+            //dash.dashDelayTimer = 0;
+            dash.dashesRemaining = dash.maxDashes;
+            for (int i = 0; i < dash.maxDashes; i++)
             {
-                //dash.dashDelayTimer = 0;
-                dash.dashesRemaining = dash.maxDashes;
-                for (int i = 0; i < dash.maxDashes; i++)
-                {
-                    dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
-                }
-
+                dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
             }
-            else
-            {
-                dash.sprintActive = false;
-                if (Input.GetButtonDown("Dash"))
-                    DashPress(inputDir);
-            }
-
-
-            if (Input.GetButton("Dash"))
-                DashCharge();
-            else
-                dash.sprintActive = false;
+            
         }
         else
         {
-            if (physics.onGround)
-            {
-                //dash.dashDelayTimer = 0;
-                if (dash.dashDelayTimer <= 0)
-                {
-                    dash.dashesRemaining = dash.maxDashes;
-                    for (int i = 0; i < dash.maxDashes; i++)
-                    {
-                        dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
-                    }
-                }
-
-            }
-
+            dash.sprintActive = false;
             if (Input.GetButtonDown("Dash"))
                 DashPress(inputDir);
         }
+
+        if (Input.GetButton("Dash"))
+            DashCharge();
+        else
+            dash.sprintActive = false;
 
         if (Input.GetButtonUp("Dash"))
             DashRelease();
     }
     void DashPress(Vector2 moveDir)
     {
-        if (dash.direction == directionEnum.horizontal)
-            moveDir.y = 0;
-        if (dash.direction == directionEnum.vertical)
-            moveDir.x = 0;
         if (dash.dashesRemaining > 0 && dash.dashDelayTimer <= 0 && moveDir != Vector2.zero)
         {
-			PlaySoundInList(dash.dashSounds);
-
             //Force PUUUUUSH
             rb.velocity = Vector3.zero;
             Vector3 forceDir = Vector3.Normalize(new Vector3(moveDir.x, moveDir.y, 0));
-            
             rb.AddForce(forceDir * dash.dashPower, ForceMode.Impulse);
 
             //Dash Limiters
@@ -414,80 +310,6 @@ public class PlayerController : MonoBehaviour
     void DashRelease()
     {
         
-    }
-
-    //Swing
-    void SwingController()
-    {
-        if (swing.swinging)
-        {
-            Vector3 dir = swing.swingPivot.position - rb.position;
-            if (swing.swingDir == 1)
-                dir = Vector3.Normalize(new Vector3(dir.y, -dir.x, 0));
-            else
-                dir = Vector3.Normalize(new Vector3(-dir.y, dir.x, 0));
-            UnityEngine.Debug.Log(dir);
-            rb.AddForce(dir * swing.swingSpeed * 10);
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, swing.swingSpeed);
-            rb.transform.position = swing.swingPivot.position + (Vector3.Normalize(rb.transform.position - swing.swingPivot.position) * swing.swingDist);
-
-            if (Input.GetButtonUp("Jump"))
-                SwingRelease();
-            swing.LR.enabled = true;
-            swing.LR.SetPosition(1, swing.swingPivot.position - rb.position);
-        }
-        else
-        {
-            swing.LR.enabled = false;
-            if (swing.swingPivot!= null && !physics.onGround)
-            {
-                if (Input.GetButtonDown("Jump"))
-                    SwingPress();
-            }
-        }
-    }
-    void SwingPress()
-    {
-		PlaySoundInList(swing.swingSounds);
-        rb.useGravity = false;
-        swing.swinging = true;
-        Vector3 dir = swing.swingPivot.position - rb.position;
-            Vector3 cw = Vector3.Normalize(new Vector3(dir.y, -dir.x, 0));
-            Vector3 ccw = Vector3.Normalize(new Vector3(-dir.y, dir.x, 0));
-        dir = Vector3.Normalize(rb.velocity);
-        if (Vector3.Distance(cw, dir) < Vector3.Distance(ccw, dir))
-            swing.swingDir = 1;
-        else
-            swing.swingDir = -1;
-
-        swing.swingDist = Mathf.Max(Vector3.Distance(swing.swingPivot.transform.position, rb.position), swing.minSwingDist);
-
-        dash.dashDelayTimer = 0;
-        jump.jumpDelayTimer = 0;
-        dash.dashesRemaining = dash.maxDashes;
-        jump.jumpsRemaining = jump.maxJumps;
-        for (int i = 0; i < dash.maxDashes; i++)
-        {
-            dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
-        }
-        mr.material.SetColor("_Color", Color.white);
-    }
-    void SwingCharge()
-    {
-        
-    }
-
-    void SwingRelease()
-    {
-		PlaySoundInList(swing.releaseSounds);
-		swing.swinging = false;
-        swing.LR.enabled = false;
-        rb.useGravity = true;
-
-        Vector3 launchPower = Vector3.Normalize(rb.velocity) * swing.launchForce;
-        rb.velocity = Vector3.zero;
-        rb.AddForce(launchPower, ForceMode.Impulse);
-        DisableInteraction(0.15f);
     }
 
     //Z Track
@@ -525,13 +347,7 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-		bool prevOnGround = physics.onGround;
         physics.onGround = tempOnGround;
-
-		if (prevOnGround != physics.onGround && rb.velocity.y < 0.0f)
-		{
-			PlaySoundInList(physics.landSounds);
-		}
     }
 
     public void DisableInteraction (float timer)
@@ -549,52 +365,23 @@ public class PlayerController : MonoBehaviour
             movement.launchDelayTimer = movement.launchDelay;
             dash.dashDelayTimer = 0;
             jump.jumpDelayTimer = 0;
-
-			PlaySoundInList(movement.launchSounds);
-
-		}
+            
+        }
     }
 
     public void CollisionEnter(Collision collision)
     {
         if (dash.dashDelayTimer > 0)
         {
-            if (collision.collider.tag == "DashBreakable")
+            Vector3 normal = Vector3.zero;
+            foreach (var item in collision.contacts)
             {
-                collision.collider.gameObject.SetActive(false);
-                rb.velocity = physics.prevVelocity[1];
+                normal += item.normal;
             }
-            else
-            {
-                Vector3 normal = Vector3.zero;
-                foreach (var item in collision.contacts)
-                {
-                    normal += item.normal;
-                }
-                normal /= collision.contacts.Length;
-                Vector3 force = Vector3.Reflect(physics.prevVelocity[1], normal) * dash.bounceMultiplier;
-                rb.velocity = Vector3.zero;
-                rb.AddForce(force, ForceMode.Impulse);
-            }
-        }
-    }
-
-    public void TriggerStay(Collider other)
-    {
-        if (other.tag == "Swing")
-        {
-            swing.swingPivot = other.transform;
-        }
-    }
-
-    public void TriggerExit(Collider other)
-    {
-        if (other.tag == "Swing")
-        {
-            if (other.transform == swing.swingPivot && swing.swinging == false)
-            {
-                swing.swingPivot = null;
-            }
+            normal /= collision.contacts.Length;
+            Vector3 force = Vector3.Reflect(physics.prevVelocity[1],normal) * dash.bounceMultiplier;
+            rb.velocity = Vector3.zero;
+            rb.AddForce(force, ForceMode.Impulse);
         }
     }
 
@@ -602,28 +389,18 @@ public class PlayerController : MonoBehaviour
     {
         if (activate)
         {
-            if (!tunnel.inTunnel)
-            {
-				PlaySoundLooping(tunnel.digSound);
-                tunnel.inTunnel = true;
-                tunnel.tunnelMoveDir = Vector3.Normalize(new Vector3(rb.velocity.x, rb.velocity.y, 0));
-                rb.useGravity = false;
-                rb.velocity = Vector3.zero;
-                dash.dashDelayTimer = 0;
-                jump.jumpDelayTimer = 0;
-                dash.dashesRemaining = dash.maxDashes;
-                jump.jumpsRemaining = jump.maxJumps;
-                for (int i = 0; i < dash.maxDashes; i++)
-                {
-                    dash.dashCounterHolder.GetChild(i).gameObject.SetActive(true);
-                }
-                mr.material.SetColor("_Color", Color.white);
-            }
+            tunnel.inTunnel = true;
+            tunnel.tunnelMoveDir = Vector3.Normalize(new Vector3(rb.velocity.x, rb.velocity.y, 0));
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            dash.dashesRemaining = dash.maxDashes;
+            dash.dashDelayTimer = 0;
+            jump.jumpDelayTimer = 0;
+            mr.material.SetColor("_Color", Color.white);
         }
         else
         {
-			StopSoundLooping();
-			tunnel.inTunnel = false;
+            tunnel.inTunnel = false;
             Vector3 launchPower = Vector3.Normalize(rb.velocity) * tunnel.launchForce;
             rb.velocity = Vector3.zero;
             rb.AddForce(launchPower, ForceMode.Impulse);
