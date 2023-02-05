@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CH_Raddish_MAT
+  m_Name: CH_Raddash_MAT
   m_Shader: {fileID: 4800000, guid: 2c570137f5d97144789efcae785709f0, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -162,7 +162,7 @@ Material:
     - _MainTint1: {r: 0.07849761, g: 0.990566, b: 0.084653735, a: 0}
     - _MatcapColor: {r: 1, g: 1, b: 1, a: 0}
     - _SecondaryColor: {r: 0.5566038, g: 0.4441999, b: 0.1969117, a: 1}
-    - _ShadingTint: {r: 0.44313726, g: 0.31965214, b: 0, a: 0}
+    - _ShadingTint: {r: 0.44313726, g: 0.36422947, b: 0, a: 0}
     - _ShadowColor: {r: 0.14727469, g: 0.09291561, b: 0.5660378, a: 0}
     - _SheenOrient: {r: -0.5, g: 0.5, b: 0, a: 0}
     - _SheenPan: {r: 0, g: 0, b: 0, a: 0}
