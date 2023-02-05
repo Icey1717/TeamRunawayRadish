@@ -11,6 +11,7 @@ Shader "Raddish/CH_Raddash_TEX"
 		_ShadingVal("ShadingVal", Float) = 0.5
 		_ShadingAdd("ShadingAdd", Float) = 1
 		_ShadingBias("ShadingBias", Float) = 1
+		_ShadowStrength("ShadowStrength", Range( 0 , 1)) = 0.5
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 		[HideInInspector] __dirty( "", Int ) = 1
 	}
@@ -55,12 +56,27 @@ Shader "Raddish/CH_Raddash_TEX"
 		uniform float4 _TintOutline;
 		uniform float _OutlineTintStrength;
 		uniform float4 _ShadingTint;
+		uniform float _ShadowStrength;
 
 		inline half4 LightingStandardCustomLighting( inout SurfaceOutputCustomLightingCustom s, half3 viewDir, UnityGI gi )
 		{
 			UnityGIInput data = s.GIData;
 			Input i = s.SurfInput;
 			half4 c = 0;
+			#ifdef UNITY_PASS_FORWARDBASE
+			float ase_lightAtten = data.atten;
+			if( _LightColor0.a == 0)
+			ase_lightAtten = 0;
+			#else
+			float3 ase_lightAttenRGB = gi.light.color / ( ( _LightColor0.rgb ) + 0.000001 );
+			float ase_lightAtten = max( max( ase_lightAttenRGB.r, ase_lightAttenRGB.g ), ase_lightAttenRGB.b );
+			#endif
+			#if defined(HANDLE_SHADOWS_BLENDING_IN_GI)
+			half bakedAtten = UnitySampleBakedOcclusion(data.lightmapUV.xy, data.worldPos);
+			float zDist = dot(_WorldSpaceCameraPos - data.worldPos, UNITY_MATRIX_V[2].xyz);
+			float fadeDist = UnityComputeShadowFadeDistance(data.worldPos, zDist);
+			ase_lightAtten = UnityMixRealtimeAndBakedShadows(data.atten, bakedAtten, UnityComputeShadowFade(fadeDist));
+			#endif
 			float2 uv_MainTex = i.uv_texcoord * _MainTex_ST.xy + _MainTex_ST.zw;
 			float4 tex2DNode841 = tex2D( _MainTex, uv_MainTex );
 			float3 ase_worldNormal = i.worldNormal;
@@ -75,7 +91,8 @@ Shader "Raddish/CH_Raddash_TEX"
 			float Shading828 = saturate( ( ( pow( saturate( dotResult735 ) , _ShadingBias ) + _ShadingAdd ) * _ShadingVal ) );
 			float4 lerpResult846 = lerp( _TintOutline , ( tex2DNode841 * _TintOutline ) , _OutlineTintStrength);
 			float4 lerpResult843 = lerp( ( tex2DNode841 * Shading828 ) , lerpResult846 , i.vertexColor.r);
-			float4 lerpResult831 = lerp( lerpResult843 , _ShadingTint , ( 1.0 - saturate( Shading828 ) ));
+			float lerpResult852 = lerp( saturate( Shading828 ) , ase_lightAtten , _ShadowStrength);
+			float4 lerpResult831 = lerp( lerpResult843 , _ShadingTint , ( 1.0 - lerpResult852 ));
 			c.rgb = lerpResult831.rgb;
 			c.a = 1;
 			return c;
@@ -229,9 +246,6 @@ Node;AmplifyShaderEditor.VertexColorNode;842;-69.66746,-704.6794;Inherit;False;0
 Node;AmplifyShaderEditor.LerpOp;843;311.1928,-924.1835;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.WorldNormalVector;801;-2004.355,-504.9407;Inherit;False;True;1;0;FLOAT3;0,0,1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.StandardSurfaceOutputNode;554;1206.124,-1095.99;Float;False;True;-1;2;ASEMaterialInspector;0;0;CustomLighting;Raddish/CH_Raddash_TEX;False;False;False;False;True;True;True;True;True;True;True;True;False;False;False;False;False;False;False;False;False;Back;1;False;;3;False;;False;0;False;;0;False;;False;0;Opaque;0.5;True;True;0;False;Opaque;;Geometry;All;12;all;True;True;True;True;0;False;;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;2;15;10;25;False;0.5;True;0;0;False;;0;False;;0;0;False;;0;False;;0;False;;0;False;;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;True;Relative;0;;-1;-1;-1;-1;0;False;0;0;False;;-1;0;False;;0;0;0;False;0.1;False;;0;False;;False;15;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
-Node;AmplifyShaderEditor.SaturateNode;835;431.4255,-568.338;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode;832;259.5688,-572.9859;Inherit;False;828;Shading;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.OneMinusNode;833;576.9609,-569.149;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.LerpOp;831;894.5298,-800.8138;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ColorNode;809;-652.2469,-1270.342;Inherit;False;Property;_TintOutline;TintOutline;1;0;Create;True;0;0;0;False;0;False;0.5754717,0.5754717,0.5754717,0;0.5754716,0.5754716,0.5754716,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;847;-644.4284,-1059.6;Inherit;False;Property;_OutlineTintStrength;OutlineTintStrength;2;0;Create;True;0;0;0;False;0;False;0.5;0;0;0;0;1;FLOAT;0
@@ -241,6 +255,12 @@ Node;AmplifyShaderEditor.RangedFloatNode;737;-1527.875,-368.6339;Inherit;False;P
 Node;AmplifyShaderEditor.RangedFloatNode;739;-1332.762,-354.4076;Inherit;False;Property;_ShadingAdd;ShadingAdd;8;0;Create;True;0;0;0;False;0;False;1;0.98;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;741;-1145.886,-356.2289;Inherit;False;Property;_ShadingVal;ShadingVal;7;0;Create;True;0;0;0;False;0;False;0.5;0.58;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;830;538.1171,-760.8826;Inherit;False;Property;_ShadingTint;ShadingTint;6;0;Create;True;0;0;0;False;0;False;0,0,0.7803922,0;0,0,0.7803922,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.LightAttenuation;849;205.0952,-259.8385;Inherit;False;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SaturateNode;850;297.1292,-450.6176;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode;851;125.2725,-455.2655;Inherit;False;828;Shading;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.LerpOp;852;468.0952,-449.8385;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.OneMinusNode;854;642.6646,-464.4286;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;853;138.0952,-365.8385;Inherit;False;Property;_ShadowStrength;ShadowStrength;20;0;Create;True;0;0;0;False;0;False;0.5;0.5;0;1;0;1;FLOAT;0
 WireConnection;556;0;555;0
 WireConnection;558;0;642;0
 WireConnection;558;1;556;0
@@ -299,15 +319,18 @@ WireConnection;843;0;744;0
 WireConnection;843;1;846;0
 WireConnection;843;2;842;1
 WireConnection;554;13;831;0
-WireConnection;835;0;832;0
-WireConnection;833;0;835;0
 WireConnection;831;0;843;0
 WireConnection;831;1;830;0
-WireConnection;831;2;833;0
+WireConnection;831;2;854;0
 WireConnection;846;0;809;0
 WireConnection;846;1;848;0
 WireConnection;846;2;847;0
 WireConnection;848;0;841;0
 WireConnection;848;1;809;0
+WireConnection;850;0;851;0
+WireConnection;852;0;850;0
+WireConnection;852;1;849;0
+WireConnection;852;2;853;0
+WireConnection;854;0;852;0
 ASEEND*/
-//CHKSM=9705715032F3E2A77CF1BF1B46D25CA91708CFAD
+//CHKSM=3D003525C09C6177F8D2512D28E7729EA6F752C7
