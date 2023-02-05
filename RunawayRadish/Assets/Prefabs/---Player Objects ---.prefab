@@ -545,6 +545,7 @@ MonoBehaviour:
     tunnelSpeed: 5
     turnSpeed: 3
     inTunnel: 0
+    digSound: {fileID: 8300000, guid: 531efd0eecf5a9e42adfc4f477fbb4db, type: 3}
   swing:
     swingPivot: {fileID: 0}
     swingSpeed: 6.5
@@ -554,6 +555,10 @@ MonoBehaviour:
     swingDist: 0
     minSwingDist: 1
     LR: {fileID: 6799942900298137808}
+    swingSounds:
+    - {fileID: 8300000, guid: 264b3bf76e2401745b8c10bb73d499ce, type: 3}
+    releaseSounds:
+    - {fileID: 8300000, guid: 3127b0d0d1ae086478be85a1a886bd51, type: 3}
   jump:
     onlyJumpOnGround: 1
     basePower: 6
@@ -572,6 +577,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: b8443b1f4c424de4188dffc13fdc2806, type: 3}
   dash:
     direction: 0
+    dashOnGround: 1
     dashPower: 10
     sprintMultiplier: 1.5
     sprintActive: 0
@@ -582,6 +588,13 @@ MonoBehaviour:
     dashCounterHolder: {fileID: 1481532237}
     dashColor: {r: 0.15294118, g: 0.7097418, b: 0.7529412, a: 1}
     bounceMultiplier: 0.7
+    dashSounds:
+    - {fileID: 8300000, guid: 08ff036b74725444d8cb9a9fd15ec172, type: 3}
+    - {fileID: 8300000, guid: 2b1a4dbf358628a419733751c6fbb672, type: 3}
+    - {fileID: 8300000, guid: 33f70ea1e69b1a84e9be00003969d3e7, type: 3}
+    - {fileID: 8300000, guid: c36e4d8543f152f4288381827474824f, type: 3}
+    - {fileID: 8300000, guid: 66cb746e8b625b34a9bdc0134ab4d885, type: 3}
+    - {fileID: 8300000, guid: 7999f42420f457d48b13ea1754250a15, type: 3}
   physics:
     onGround: 0
     radius: 0.4

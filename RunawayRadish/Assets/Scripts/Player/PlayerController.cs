@@ -48,7 +48,9 @@ public class PlayerController : MonoBehaviour
         public float turnSpeed;
         [HideInInspector]
         public bool inTunnel = false;
-    }
+		[SerializeField]
+		public AudioClip digSound;
+	}
     public SwingVar swing;
     [System.Serializable]
     public class SwingVar
@@ -66,7 +68,13 @@ public class PlayerController : MonoBehaviour
         public float minSwingDist = 1;
 
         public LineRenderer LR;
-    }
+
+		[SerializeField]
+		public List<AudioClip> swingSounds;
+
+		[SerializeField]
+		public List<AudioClip> releaseSounds;
+	}
     public JumpVar jump;
     [System.Serializable]
     public class JumpVar
@@ -113,8 +121,8 @@ public class PlayerController : MonoBehaviour
         public Color dashColor = Color.cyan;
         public float bounceMultiplier = 2;
 
-
-    }
+		public List<AudioClip> dashSounds;
+	}
 
     public enum directionEnum {horizontal,vertical,omnidirectional };
     public enum dashEnum { dashOnGround, sprint};
@@ -144,10 +152,24 @@ public class PlayerController : MonoBehaviour
 	void PlaySoundInList(List<AudioClip> list)
 	{
 		audioSource.clip = list[Random.Range(0, list.Count - 1)];
+		audioSource.loop = false;
 		audioSource.Play();
 	}
 
-    void Start()
+	void PlaySoundLooping(AudioClip clip)
+	{
+		audioSource.clip = clip;
+		audioSource.loop = true;
+		audioSource.Play();
+	}
+
+	void StopSoundLooping()
+	{
+		audioSource.loop = false;
+		audioSource.Stop();
+	}
+
+	void Start()
     {
         tarZLevel = rb.transform.position.z;
         curZLevel = rb.transform.position.z;
@@ -362,6 +384,8 @@ public class PlayerController : MonoBehaviour
             moveDir.x = 0;
         if (dash.dashesRemaining > 0 && dash.dashDelayTimer <= 0 && moveDir != Vector2.zero)
         {
+			PlaySoundInList(dash.dashSounds);
+
             //Force PUUUUUSH
             rb.velocity = Vector3.zero;
             Vector3 forceDir = Vector3.Normalize(new Vector3(moveDir.x, moveDir.y, 0));
@@ -424,6 +448,7 @@ public class PlayerController : MonoBehaviour
     }
     void SwingPress()
     {
+		PlaySoundInList(swing.swingSounds);
         rb.useGravity = false;
         swing.swinging = true;
         Vector3 dir = swing.swingPivot.position - rb.position;
@@ -454,7 +479,8 @@ public class PlayerController : MonoBehaviour
 
     void SwingRelease()
     {
-        swing.swinging = false;
+		PlaySoundInList(swing.releaseSounds);
+		swing.swinging = false;
         swing.LR.enabled = false;
         rb.useGravity = true;
 
@@ -578,6 +604,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!tunnel.inTunnel)
             {
+				PlaySoundLooping(tunnel.digSound);
                 tunnel.inTunnel = true;
                 tunnel.tunnelMoveDir = Vector3.Normalize(new Vector3(rb.velocity.x, rb.velocity.y, 0));
                 rb.useGravity = false;
@@ -595,7 +622,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            tunnel.inTunnel = false;
+			StopSoundLooping();
+			tunnel.inTunnel = false;
             Vector3 launchPower = Vector3.Normalize(rb.velocity) * tunnel.launchForce;
             rb.velocity = Vector3.zero;
             rb.AddForce(launchPower, ForceMode.Impulse);
