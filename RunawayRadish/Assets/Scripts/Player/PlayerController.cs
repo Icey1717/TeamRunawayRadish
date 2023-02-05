@@ -250,6 +250,8 @@ public class PlayerController : MonoBehaviour
         float velocityOpposition = swing.velocityOppositionAfterSwing.Evaluate(Time.fixedTime - swing.lastSwingTime);
         moveDirV3.x -= rb.velocity.x * velocityOpposition;
 
+        animator.SetFloat("Movement", Mathf.Abs(inputDir.x) < 0.01f ? 0.0f : 1.0f);
+
         rb.AddForce(moveDirV3);
         rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -tempMaxSpeed, tempMaxSpeed), rb.velocity.y, rb.velocity.z);
     }
@@ -307,7 +309,7 @@ public class PlayerController : MonoBehaviour
 
 			//Visual Cues
 			if (programmerAnimation)
-                animator.Play("Jump");
+                animator.SetTrigger("Jump");
         }
     }
     void JumpCharge()
