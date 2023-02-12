@@ -8,6 +8,8 @@ TagManager:
   - Swing
   - DashBreakable
   - Music
+  - Diggable
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -44,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1716400829
     locked: 0
