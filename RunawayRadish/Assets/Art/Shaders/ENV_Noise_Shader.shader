@@ -126,7 +126,7 @@ Shader "Raddish/ENV_NoiseTex"
 			float Shading828 = saturate( ( ( pow( saturate( dotResult735 ) , _ShadingBias ) + _ShadingAdd ) * _ShadingVal ) );
 			float lerpResult851 = lerp( saturate( Shading828 ) , ase_lightAtten , _ShadowStrength);
 			float temp_output_833_0 = ( 1.0 - lerpResult851 );
-			float lerpResult954 = lerp( ase_lightAtten , temp_output_833_0 , 0.3);
+			float lerpResult954 = lerp( ase_lightAtten , temp_output_833_0 , 0.15);
 			float ShadowDirection924 = lerpResult954;
 			float4 lerpResult930 = lerp( float4( 0,0,0,0 ) , ( _LightColour * staticSwitch948 ) , ShadowDirection924);
 			float3 ase_vertex3Pos = mul( unity_WorldToObject, float4( i.worldPos , 1 ) );
@@ -301,7 +301,7 @@ Node;AmplifyShaderEditor.LerpOp;930;221.0491,-2882.445;Inherit;False;3;0;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;924;1514.88,-487.2907;Inherit;False;ShadowDirection;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.LerpOp;954;1324.987,-467.959;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.OneMinusNode;833;1169.599,-566.2672;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;953;924.9867,-241.959;Inherit;False;Constant;_Float0;Float 0;19;0;Create;True;0;0;0;False;0;False;0.3;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;953;924.9867,-241.959;Inherit;False;Constant;_Float0;Float 0;19;0;Create;True;0;0;0;False;0;False;0.15;0;0;0;0;1;FLOAT;0
 WireConnection;855;0;876;0
 WireConnection;855;1;828;0
 WireConnection;867;0;864;0
@@ -374,4 +374,4 @@ WireConnection;954;1;833;0
 WireConnection;954;2;953;0
 WireConnection;833;0;851;0
 ASEEND*/
-//CHKSM=739CD3DD5BC1A1C36DBF8CF1DEFB8DA881A489AE
+//CHKSM=51D9D7CD5D25AD29DB38DAB73C8DAF46CA1B2F91

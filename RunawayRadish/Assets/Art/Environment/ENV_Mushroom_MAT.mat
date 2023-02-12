@@ -82,24 +82,24 @@ Material:
     - _Grad_Height: 3.62
     - _GradientToggleOn: 1
     - _GradientToggleOnOff: 0
-    - _LightAdd: -3.4
-    - _LightBias: -4.82
+    - _LightAdd: -2.01
+    - _LightBias: -0.71
     - _LightDot: 1
     - _LightOPacity: 1
     - _LightOn: 1
     - _LightOneMinus: 0
     - _LightPower: -1.25
     - _LightStrength: 0.24
-    - _LightVal: -0.5
+    - _LightVal: -0.81
     - _Metallic: 0
     - _Mode: 0
     - _NoiseTexStrength: 1
     - _NoiseTexToggle: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ShadingAdd: 1.2
-    - _ShadingBias: 0.34
-    - _ShadingVal: 0.68
+    - _ShadingAdd: 0.57
+    - _ShadingBias: 0.14
+    - _ShadingVal: 0.72
     - _ShadowStrength: 0.783
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -112,7 +112,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightColour: {r: 0.7075472, g: 0.34853625, b: 0.29814875, a: 1}
+    - _LightColour: {r: 0.4716981, g: 0.23215795, b: 0.14981602, a: 1}
     - _LightPosition: {r: -3, g: 10, b: -1, a: 1}
     - _ShadingTint: {r: 0.17108814, g: 0.16862746, b: 0.30980393, a: 1}
     - _TintGradient: {r: 0.4811321, g: 0.41133308, b: 0.3207547, a: 1}
