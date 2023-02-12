@@ -98,10 +98,10 @@ Material:
     - _NoiseTexToggle: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ShadingAdd: -0.04
-    - _ShadingBias: 1.43
-    - _ShadingVal: 0.52
-    - _ShadowStrength: 0.664
+    - _ShadingAdd: 0.63
+    - _ShadingBias: 1.91
+    - _ShadingVal: 0.56
+    - _ShadowStrength: 0.511
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -115,7 +115,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightColour: {r: 0.7845028, g: 0.91764706, b: 0.43921572, a: 1}
     - _LightPosition: {r: -3, g: 10, b: -1, a: 1}
-    - _ShadingTint: {r: 0.12427313, g: 0.5566038, b: 0.44036546, a: 1}
+    - _ShadingTint: {r: 0.1254902, g: 0.4134602, b: 0.5568628, a: 1}
     - _TintGradient: {r: 0.051610593, g: 0.3018868, b: 0.030378522, a: 1}
     - _TintMain: {r: 0.753223, g: 1, b: 0.23270434, a: 1}
   m_BuildTextureStacks: []
