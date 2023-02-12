@@ -110,7 +110,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightColour: {r: 0.990566, g: 0.87042284, b: 0.6603773, a: 0}
-    - _LightPosition: {r: -1, g: 1, b: -3, a: 0}
+    - _LightPosition: {r: -0.16, g: 1, b: -3, a: 0}
     - _ShadingTint: {r: 0.050542757, g: 0, b: 0.16862746, a: 0}
     - _TintGradient: {r: 0.25471696, g: 0.25471696, b: 0.25471696, a: 0}
     - _TintMain: {r: 0.6415094, g: 0.5555986, b: 0.46398476, a: 0}
