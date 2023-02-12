@@ -78,6 +78,10 @@ Material:
     - _GlossyReflections: 1
     - _Grad_Blur: 0
     - _Grad_Height: 1.81
+    - _LightAdd: 0.05
+    - _LightBias: 1.5
+    - _LightOneMinus: 0
+    - _LightVal: 0.5
     - _Metallic: 0
     - _Mode: 0
     - _NoiseTexStrength: 1
@@ -100,6 +104,8 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LightColour: {r: 0.23584908, g: 0.18913335, b: 0.14165777, a: 1}
+    - _LightPosition: {r: 0, g: 1, b: 1, a: 0}
     - _ShadingTint: {r: 0.037320513, g: 0.037320513, b: 0.16037735, a: 0}
     - _TintBody: {r: 0.5566038, g: 0.45508483, b: 0.45508483, a: 0}
     - _TintFeet: {r: 0.16981131, g: 0.14044142, b: 0.14044142, a: 0}

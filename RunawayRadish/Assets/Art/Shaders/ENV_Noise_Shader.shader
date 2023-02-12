@@ -17,7 +17,7 @@ Shader "Raddish/ENV_NoiseTex"
 		_NoiseTex("NoiseTex", 2D) = "white" {}
 		_NoiseTexStrength("NoiseTexStrength", Range( 0 , 1)) = 0
 		_LightPosition("Light Position", Vector) = (0,1,1,0)
-		_LightColour("Light Colour", Color) = (0.9992408,1,0.7113208,0)
+		_LightColour("Light Colour", Color) = (0,0,0,0)
 		_LightAdd("LightAdd", Float) = 0.05
 		_LightVal("LightVal", Float) = 0.5
 		_LightBias("LightBias", Float) = 1.5
@@ -288,7 +288,7 @@ Node;AmplifyShaderEditor.SimpleAddOpNode;942;-768.5791,-2907.573;Inherit;False;2
 Node;AmplifyShaderEditor.RangedFloatNode;904;-1248.618,-2779.591;Inherit;False;Property;_LightBias;LightBias;17;0;Create;True;0;0;0;False;0;False;1.5;0.8;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;918;-1077.125,-2787.126;Inherit;False;Property;_LightAdd;LightAdd;15;0;Create;True;0;0;0;False;0;False;0.05;1.54;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;905;-922.639,-2786.735;Inherit;False;Property;_LightVal;LightVal;16;0;Create;True;0;0;0;False;0;False;0.5;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;908;-747.9229,-2787.827;Inherit;False;Property;_LightColour;Light Colour;14;0;Create;True;0;0;0;False;0;False;0.9992408,1,0.7113208,0;1,0.9852338,0.8726415,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;908;-747.9229,-2787.827;Inherit;False;Property;_LightColour;Light Colour;14;0;Create;True;0;0;0;False;0;False;0,0,0,0;1,0.9852338,0.8726415,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;910;19.32921,-2942.402;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;947;447.3167,-2898.72;Inherit;False;Debug;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.OneMinusNode;945;-341.1884,-2792.529;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
@@ -374,4 +374,4 @@ WireConnection;954;1;833;0
 WireConnection;954;2;953;0
 WireConnection;833;0;851;0
 ASEEND*/
-//CHKSM=51D9D7CD5D25AD29DB38DAB73C8DAF46CA1B2F91
+//CHKSM=431F71CC82DD4A3EDC31EDF69E5C7E4C3D84770B
