@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ENV_DIRT_YUUTA_MAT
+  m_Shader: {fileID: 4800000, guid: 86914ce85b2c1c942bbf273dcefccf47, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _NOISETEXTOGGLE_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 95b43aa46a68d0c4eb5ce453bfc58a2b, type: 3}
+        m_Scale: {x: 0.09, y: 0.59}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GRAD_XY: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Grad_Blur: 0.87
+    - _Grad_Height: 0.06
+    - _LightAdd: -0.61
+    - _LightBias: 1.09
+    - _LightOPacity: 0.126
+    - _LightOneMinus: 0
+    - _LightVal: 1.59
+    - _Metallic: 0
+    - _Mode: 0
+    - _NoiseTexStrength: 1
+    - _NoiseTexToggle: 1
+    - _OcclusionStrength: 1
+    - _OutlineTintStrength: 0.5
+    - _Parallax: 0.02
+    - _ShadingAdd: 2.95
+    - _ShadingBias: 0.75
+    - _ShadingVal: 1
+    - _ShadowStrength: 0.62
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _StarsScale: 0.5
+    - _StarsWarp: 0.5
+    - _UVSec: 0
+    - _ZWrite: 1
+    - __dirty: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LightColour: {r: 0, g: 0, b: 0, a: 1}
+    - _LightPosition: {r: 0, g: 1, b: 1, a: 0}
+    - _ShadingTint: {r: 0.08235294, g: 0.058823533, b: 0.18431373, a: 1}
+    - _TintBody: {r: 0.5566038, g: 0.45508483, b: 0.45508483, a: 0}
+    - _TintFeet: {r: 0.16981131, g: 0.14044142, b: 0.14044142, a: 0}
+    - _TintGradient: {r: 0.3207547, g: 0.2559121, b: 0.2559121, a: 1}
+    - _TintMain: {r: 0.18867922, g: 0.15053652, b: 0.15053652, a: 0}
+    - _TintMist: {r: 1, g: 1, b: 1, a: 0}
+    - _TintOutline: {r: 0.57547164, g: 0.57547164, b: 0.57547164, a: 0}
+  m_BuildTextureStacks: []
