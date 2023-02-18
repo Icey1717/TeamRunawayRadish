@@ -23,23 +23,23 @@ public class FinishLine : MonoBehaviour
     [HideInInspector]
     public float timer;
 
-    public TextMeshPro timerText;
-    public TextMeshPro collectedText;
+	public TextMeshProUGUI timerText;
+	public TextMeshProUGUI collectedText;
 
 
-    public finishTypeEnum finishType = finishTypeEnum.collectX;
+	public finishTypeEnum finishType = finishTypeEnum.collectX;
     public enum finishTypeEnum { collectX, reachHere};
     // Start is called before the first frame update
     void Start()
     {
-        if (!showCollectibleText)
+		if (!showCollectibleText)
             collectedText.gameObject.SetActive(false);
         else
         {
             if (tarCollectible > 0)
-                collectedText.text = "0/" + tarCollectible.ToString() + " Collected";
+                collectedText.text = "0/" + tarCollectible.ToString() + "";
             else
-                collectedText.text = "0 Collected";
+                collectedText.text = "0";
         }
     }
 
