@@ -42281,6 +42281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinishLine
       objectReference: {fileID: 0}
+    - target: {fileID: 3707774443736886319, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
+      propertyPath: tarCollectible
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
 --- !u!4 &2013974991 stripped

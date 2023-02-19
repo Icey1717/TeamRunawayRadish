@@ -29,6 +29,9 @@ public class FinishLine : MonoBehaviour
 
 	public finishTypeEnum finishType = finishTypeEnum.collectX;
     public enum finishTypeEnum { collectX, reachHere};
+
+	private bool completed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,62 +43,29 @@ public class FinishLine : MonoBehaviour
                 collectedText.text = "0/" + tarCollectible.ToString() + "";
             else
                 collectedText.text = "0";
-        }
+		}
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timeLimit > 0)
+		if (!completed)
+			timer += Time.deltaTime;
+        
+		if (timeLimit > 0)
             timerText.text = getTime(true);
         else
             timerText.text = getTime(false);
 
-        if (!takeCollectibles)
-        {
-            curCollectible = PlayerController.followerAmount;
-            if (tarCollectible > 0)
-                collectedText.text = curCollectible + "/" + tarCollectible.ToString() + " Collected";
-            else
-                collectedText.text = curCollectible + " Collected";
-        }
-    }
+		curCollectible = PlayerController.followerAmount;
+		if (tarCollectible > 0)
+			collectedText.text = curCollectible + "/" + tarCollectible.ToString() + " Collected";
+		else
+			collectedText.text = curCollectible + " Collected";
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            if (finishType == finishTypeEnum.reachHere)
-            {
-                if (curCollectible >= tarCollectible)
-                    finishEvent.Invoke();
-            }
-            else
-            {
-                if (takeCollectibles)
-                {
-                    other.GetComponent<FollowerTracker>().ResetChain();
-                    curCollectible += PlayerController.followerAmount;
-                    PlayerController.followerAmount = 0;
-
-                    PlayerController.followers[0].targetObject = gameObject;
-                    PlayerController.followers = new List<CollectableController>();
-                    string text = "";
-                    if (tarCollectible > 0)
-                    {
-                        text = curCollectible.ToString() + "/" + tarCollectible.ToString() + " Collected";
-                    }
-                    else
-                        text = curCollectible.ToString() + " Collected";
-                    collectedText.text = text;
-
-                    if (curCollectible >= tarCollectible)
-                        finishEvent.Invoke();
-                }
-            }
-        }
-    }
+		if (curCollectible >= tarCollectible)
+			completed = true;
+	}
 
     string getTime(bool countdown)
     {
