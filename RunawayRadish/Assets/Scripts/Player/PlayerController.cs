@@ -151,11 +151,25 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody rb;
     public MeshRenderer mr;
+    public Transform artContainer;
 
     private float curZLevel = 0;
     public float tarZLevel = 0;
 
-	void PlaySoundInList(List<AudioClip> list)
+	public class AnimationHashes
+	{
+        public int land;
+        public int jump;
+        
+        public void Init()
+		{
+            jump = Animator.StringToHash("Jump");
+            land = Animator.StringToHash("Land");
+        }
+	}
+    AnimationHashes animHashes = new AnimationHashes();
+
+    void PlaySoundInList(List<AudioClip> list)
 	{
 		audioSource.clip = list[Random.Range(0, list.Count - 1)];
 		audioSource.Play();
@@ -178,6 +192,8 @@ public class PlayerController : MonoBehaviour
     {
         tarZLevel = rb.transform.position.z;
         curZLevel = rb.transform.position.z;
+
+        animHashes.Init();
 
         if (!programmerAnimation)
             animator.enabled = false;
@@ -253,7 +269,22 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Movement", Mathf.Abs(inputDir.x) < 0.01f ? 0.0f : 1.0f);
 
         rb.AddForce(moveDirV3);
-        rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -tempMaxSpeed, tempMaxSpeed), rb.velocity.y, rb.velocity.z);
+
+        Vector3 velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -tempMaxSpeed, tempMaxSpeed), rb.velocity.y, rb.velocity.z);
+        rb.velocity = velocity;
+
+        if (inputDir.x > 0.1f)
+        {
+            artContainer.localRotation = Quaternion.Slerp(artContainer.localRotation, Quaternion.LookRotation(Vector3.right), 1 - Mathf.Pow(0.1f, Time.deltaTime));
+        }
+        else if (inputDir.x < -0.1f)
+        {
+            artContainer.localRotation = Quaternion.Slerp(artContainer.localRotation, Quaternion.LookRotation(Vector3.left), 1 - Mathf.Pow(0.1f, Time.deltaTime));
+        }
+        else
+        {
+            artContainer.localRotation = Quaternion.Slerp(artContainer.localRotation, Quaternion.LookRotation(Vector3.back), 1 - Mathf.Pow(0.1f, Time.deltaTime));
+        }
     }
 
     void TunnelMovement(Vector2 inputDir)
@@ -309,7 +340,11 @@ public class PlayerController : MonoBehaviour
 
 			//Visual Cues
 			if (programmerAnimation)
-                animator.SetTrigger("Jump");
+			{
+                animator.SetTrigger(animHashes.jump);
+                animator.ResetTrigger(animHashes.land);
+            }
+                
         }
     }
     void JumpCharge()
@@ -549,8 +584,9 @@ public class PlayerController : MonoBehaviour
 
 		if (prevOnGround != physics.onGround && rb.velocity.y < 0.0f)
 		{
-			PlaySoundInList(physics.landSounds);
-		}
+             PlaySoundInList(physics.landSounds);
+             animator.SetTrigger(animHashes.land);
+        }
 
         if (physics.onGround && !tunnel.inTunnel && !isGroundDiggable)
 		{
@@ -583,7 +619,9 @@ public class PlayerController : MonoBehaviour
 
 			PlaySoundInList(movement.launchSounds);
 
-		}
+            animator.SetTrigger(animHashes.jump);
+            animator.ResetTrigger(animHashes.land);
+        }
     }
 
     public void CollisionEnter(Collision collision)

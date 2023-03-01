@@ -669,6 +669,7 @@ MonoBehaviour:
     lastGroundedPos: {x: 0, y: 0, z: 0}
   rb: {fileID: 2140909626350897867}
   mr: {fileID: 842514454}
+  artContainer: {fileID: 1269322610}
   tarZLevel: 0
 --- !u!82 &5150527348121115863
 AudioSource:

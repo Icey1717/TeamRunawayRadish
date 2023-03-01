@@ -42,9 +42,9 @@ GameObject:
   m_Component:
   - component: {fileID: 401628228498251710}
   - component: {fileID: 6453967965406619132}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ENV_Brick_PF
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
