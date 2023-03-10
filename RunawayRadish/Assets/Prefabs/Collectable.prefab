@@ -164,8 +164,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7307f0e051865af42974225a76ed6842, type: 3}
   bobSpeed: 2
   bobHeight: 0.1
-  minCryTime: 10
-  maxCryTime: 30
+  minCryTime: 2
+  maxCryTime: 6
 --- !u!82 &8036339477866012543
 AudioSource:
   m_ObjectHideFlags: 0
@@ -185,11 +185,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 17
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -204,6 +204,51 @@ AudioSource:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.38826
+      value: 0.85099006
+      inSlope: -1.2023379
+      outSlope: -1.2023379
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16645958
+    - serializedVersion: 3
+      time: 0.5753598
+      value: 0.44820625
+      inSlope: -2.6328683
+      outSlope: -2.6328683
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.70737755
+      value: 0.13770151
+      inSlope: -1.6996856
+      outSlope: -1.6996856
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.9504674
+    - serializedVersion: 3
+      time: 0.7916645
+      value: 0.026657179
+      inSlope: -0.2125196
+      outSlope: -0.2125196
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.9248136
+      value: 0
+      inSlope: -0.2950063
+      outSlope: -0.2950063
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.4326827
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
@@ -251,8 +296,17 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
+      time: 0.24093837
+      value: 0.09929001
+      inSlope: 0.2743052
+      outSlope: 0.2743052
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.14477615
+    - serializedVersion: 3
+      time: 0.8549118
+      value: 1.080204
       inSlope: 0
       outSlope: 0
       tangentMode: 0
