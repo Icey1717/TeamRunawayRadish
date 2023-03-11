@@ -10,6 +10,9 @@ TagManager:
   - Music
   - Diggable
   - UI
+  - Brick
+  - Wood
+  - Dirt
   layers:
   - Default
   - TransparentFX
