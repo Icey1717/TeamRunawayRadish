@@ -16,7 +16,6 @@ public class StartGame : MonoBehaviour
     {
 		if (Input.anyKey)
 		{
-			GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>().Play();
 			SceneManager.LoadScene("YuutaScene", LoadSceneMode.Single);
 		}
 	}
