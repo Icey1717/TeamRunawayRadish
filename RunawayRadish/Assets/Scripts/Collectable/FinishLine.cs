@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class FinishLine : MonoBehaviour
     public int tarCollectible = 0;
 
     [HideInInspector]
-    public int curCollectible = 0;
+    public static int curCollectible = 0;
     
     public bool takeCollectibles = true;
     public bool showCollectibleText = true;
@@ -30,46 +31,82 @@ public class FinishLine : MonoBehaviour
 	public finishTypeEnum finishType = finishTypeEnum.collectX;
     public enum finishTypeEnum { collectX, reachHere};
 
-	private bool completed = false;
+	public static bool completed = false;
+
+    public static string temp;
+ 
 
     // Start is called before the first frame update
     void Start()
     {
 		if (!showCollectibleText)
+        {
             collectedText.gameObject.SetActive(false);
+        }
         else
         {
             if (tarCollectible > 0)
+            {
                 collectedText.text = "0/" + tarCollectible.ToString() + "";
+            }
+
             else
+            {
                 collectedText.text = "0";
+            }
 		}
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log("FinishLine is completed = " + completed);
 		if (!completed)
+        {
 			timer += Time.deltaTime;
+        }
         
 		if (timeLimit > 0)
+        {
             timerText.text = getTime(true);
-        else
-            timerText.text = getTime(false);
+        }
 
-		curCollectible = PlayerController.followerAmount;
+        else
+        {
+            timerText.text = getTime(false);
+        }
+
+        Debug.Log("tarCollectible is: " + tarCollectible);
+
+		//curCollectible = PlayerController.FollowerAmount; collectible controller now increments this
 		if (tarCollectible > 0)
+        {
 			collectedText.text = curCollectible + "/" + tarCollectible.ToString() + " Collected";
+        }
+
 		else
+        {
 			collectedText.text = curCollectible + " Collected";
+        }
 
 		if (curCollectible >= tarCollectible)
+        {
+            Debug.Log("I've reached this point");
 			completed = true;
+
+            ScoreKeeper.incrementRound();
+
+            SceneManager.LoadScene("ScoreScreen", LoadSceneMode.Single);
+
+            
+        }
 	}
 
+   
     string getTime(bool countdown)
     {
-        string temp = "";
+        temp = "";
         float time = timer * 100;
         if (countdown)
         {

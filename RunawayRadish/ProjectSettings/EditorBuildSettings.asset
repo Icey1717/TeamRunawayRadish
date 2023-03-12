@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/YuutaScene.unity
     guid: bde1e61eae35375418cc7e04336f1838
+  - enabled: 1
+    path: Assets/ScoreScreen.unity
+    guid: 31815843886226444a4b639270261372
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

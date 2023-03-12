@@ -138,9 +138,13 @@ public class CollectableController : MonoBehaviour
 
             SphereCollider collider = GetComponent<SphereCollider>();
             collider.enabled = false;
-
-            PlayerController.followerAmount++;
+			
+			PlayerController.followerAmount++;
+            FinishLine.curCollectible++;
             PlayerController.followers.Add(this);
+
+			PlaySoundLooping(followSound);
+			audioSource.volume = 0.2f;
         }
     }
 }
