@@ -194,9 +194,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLimit: 0
   tarCollectible: 21
-  curCollectible: 0
   takeCollectibles: 1
   showCollectibleText: 1
+  scoreKeeper: {fileID: 2020616591866647122, guid: b51c1dd6ecf16a34792f84de31395869, type: 3}
   finishEvent:
     m_PersistentCalls:
       m_Calls: []

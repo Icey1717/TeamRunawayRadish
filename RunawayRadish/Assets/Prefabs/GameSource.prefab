@@ -145,3 +145,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c6166f53ffc40e54ca885d214ffd6867, type: 3}
   - {fileID: 8300000, guid: 5c83d9a59c583af4786bc050c0c95cd3, type: 3}
   - {fileID: 8300000, guid: f9eee4ebda5aa8745931bfef801a00ba, type: 3}
+  endCelebration:
+  - {fileID: 8300000, guid: 952211a0a940df44184c82166833dd07, type: 3}

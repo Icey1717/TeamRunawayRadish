@@ -13,6 +13,7 @@ TagManager:
   - Brick
   - Wood
   - Dirt
+  - ScoreKeeper
   layers:
   - Default
   - TransparentFX

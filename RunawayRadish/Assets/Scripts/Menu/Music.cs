@@ -23,16 +23,31 @@ public class Music : MonoBehaviour
     [SerializeField]
     private AudioClip[] music;
 
+    [SerializeField]
+    private AudioClip[] endCelebration;
+
     private AudioSource audioSource;
 
     private int i;
 
+    private IEnumerator musicTracks;
+
     // Start is called before the first frame update
-    private void Start()
+    public void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
-        StartCoroutine(playAudioSequentially());
+        musicTracks = playAudioSequentially();
+
+        startMusic();
+    }
+
+    public void Update()
+    {
+        if (!audioSource.isPlaying)
+        {
+            startMusic();
+        }
     }
 
     IEnumerator playAudioSequentially()
@@ -54,5 +69,41 @@ public class Music : MonoBehaviour
         {
             i = 0;
         }
+    }
+
+    public void startMusic()
+    {
+        Debug.Log("Starting music");
+
+        audioSource.Stop();
+
+        StartCoroutine(musicTracks);
+    }
+
+    public void partyTime()
+    {
+        Debug.Log("Party time");
+        StopCoroutine(musicTracks);
+        
+        audioSource.clip = endCelebration[0];
+
+        audioSource.Play();
+    }
+
+    public void inLevel()
+    {
+        Debug.Log("Turning down");
+        audioSource.volume = 0.214f;
+    }
+
+    public void inMenus()
+    {
+        Debug.Log("Turning up");
+        audioSource.volume = 0.5f;
+    }
+
+    public void stopMusic()
+    {
+        audioSource.Stop();
     }
 }

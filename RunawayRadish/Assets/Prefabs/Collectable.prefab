@@ -162,6 +162,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: be5df829293e0874bb99bb64434316f8, type: 3}
   - {fileID: 8300000, guid: 2d0297ba72d417c4fbdf5a4124573ce4, type: 3}
   - {fileID: 8300000, guid: 7307f0e051865af42974225a76ed6842, type: 3}
+  scoreKeeper: {fileID: 2020616591866647122, guid: b51c1dd6ecf16a34792f84de31395869, type: 3}
   bobSpeed: 2
   bobHeight: 0.1
   minCryTime: 2

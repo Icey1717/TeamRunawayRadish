@@ -18,6 +18,8 @@ public class FinishLine : MonoBehaviour
     public bool takeCollectibles = true;
     public bool showCollectibleText = true;
 
+    private ScoreKeeper score;
+
     public UnityEvent finishEvent;
     public UnityEvent timeOutEvent;
 
@@ -39,6 +41,9 @@ public class FinishLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        score = GameObject.FindGameObjectWithTag("ScoreKeeper").GetComponent<ScoreKeeper>();
+        //score = scoreKeeper.GetComponent<ScoreKeeper>();
+
 		if (!showCollectibleText)
         {
             collectedText.gameObject.SetActive(false);
@@ -61,7 +66,7 @@ public class FinishLine : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("FinishLine is completed = " + completed);
+        //Debug.Log("FinishLine is completed = " + completed);
 		if (!completed)
         {
 			timer += Time.deltaTime;
@@ -77,7 +82,7 @@ public class FinishLine : MonoBehaviour
             timerText.text = getTime(false);
         }
 
-        Debug.Log("tarCollectible is: " + tarCollectible);
+        //Debug.Log("tarCollectible is: " + tarCollectible);
 
 		//curCollectible = PlayerController.FollowerAmount; collectible controller now increments this
 		if (tarCollectible > 0)
@@ -92,10 +97,15 @@ public class FinishLine : MonoBehaviour
 
 		if (curCollectible >= tarCollectible)
         {
-            Debug.Log("I've reached this point");
+            //Debug.Log("I've reached this point");
 			completed = true;
 
-            ScoreKeeper.incrementRound();
+            score.incrementRound();
+
+            score.newTime(temp);
+
+            score.leavingLevel();
+            
 
             SceneManager.LoadScene("ScoreScreen", LoadSceneMode.Single);
 

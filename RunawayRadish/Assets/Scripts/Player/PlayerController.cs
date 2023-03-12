@@ -22,10 +22,6 @@ public class PlayerController : MonoBehaviour
 
     public static List<CollectableController> followers = new List<CollectableController>();
 
-    //private FinishLine finishLine;
-    //[SerializeField]
-    //private GameObject finish;
-
 	[System.Serializable]
     public class MovementVar
     {
@@ -193,11 +189,6 @@ public class PlayerController : MonoBehaviour
 		audioSource.Stop();
 	}
 
-    void Awake()
-    {
-        //finishLine = finish.GetComponent<FinishLine>();
-    }
-
 	void Start()
     {
         tarZLevel = rb.transform.position.z;
@@ -215,11 +206,11 @@ public class PlayerController : MonoBehaviour
     {
         GroundDetection();
 
-        UnityEngine.Debug.Log("Current collectible is: " + FinishLine.curCollectible);
+        //UnityEngine.Debug.Log("Current collectible is: " + FinishLine.curCollectible);
 
-        UnityEngine.Debug.Log("followerAmount value is: " + followerAmount);
+        //UnityEngine.Debug.Log("followerAmount value is: " + followerAmount);
 
-        UnityEngine.Debug.Log("Completed is: " + FinishLine.completed);
+        //UnityEngine.Debug.Log("Completed is: " + FinishLine.completed);
 
         PlayerInput();
 

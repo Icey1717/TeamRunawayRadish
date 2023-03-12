@@ -26,6 +26,10 @@ public class CollectableController : MonoBehaviour
 	[SerializeField]
 	public List<AudioClip> proximitySounds;
 
+	[SerializeField]
+	private GameObject scoreKeeper;
+	private ScoreKeeper score;
+
 	public float bobSpeed = 2.0f;
 	public float bobHeight = 0.1f;
 
@@ -62,6 +66,7 @@ public class CollectableController : MonoBehaviour
 	void Start()
     {
 		audioSource = GetComponent<AudioSource>();
+		score = scoreKeeper.GetComponent<ScoreKeeper>();
 		timer = Random.Range(minCryTime, maxCryTime);
 	}
     
@@ -141,6 +146,7 @@ public class CollectableController : MonoBehaviour
 			
 			PlayerController.followerAmount++;
             FinishLine.curCollectible++;
+			score.incrementBaby();
             PlayerController.followers.Add(this);
 
 			PlaySoundLooping(followSound);
