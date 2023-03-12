@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7198530246184466302}
   m_Layer: 0
-  m_Name: ENV_Mushroom_02_PF
+  m_Name: ENV_Mushroom_02_PF Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +99,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c268e54ed09ec284f9ea52dd59fc1f6d, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 9525b01548529034d879872cc90ccaca, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 6921558190198760279, guid: 1be34a48e7352044b81cd6323f41515b, type: 3}
     - target: {fileID: 919132149155446097, guid: 9525b01548529034d879872cc90ccaca, type: 3}
       propertyPath: m_Name
       value: Balboo
