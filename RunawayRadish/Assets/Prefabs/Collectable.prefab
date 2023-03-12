@@ -165,7 +165,7 @@ MonoBehaviour:
   bobSpeed: 2
   bobHeight: 0.1
   minCryTime: 2
-  maxCryTime: 6
+  maxCryTime: 4
 --- !u!82 &8036339477866012543
 AudioSource:
   m_ObjectHideFlags: 0

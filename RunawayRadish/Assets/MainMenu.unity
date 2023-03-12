@@ -123,19 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &185568780 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 619797478272273372, guid: 9497925927edf7b40ab35ba2562d8674, type: 3}
-  m_PrefabInstance: {fileID: 619797478154536400}
-  m_PrefabAsset: {fileID: 0}
---- !u!81 &185568785
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185568780}
-  m_Enabled: 1
 --- !u!1 &812064223
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1300127218}
   - component: {fileID: 1300127217}
+  - component: {fileID: 1300127219}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -449,6 +437,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1300127219
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300127215}
+  m_Enabled: 1
 --- !u!1 &1539400174
 GameObject:
   m_ObjectHideFlags: 0

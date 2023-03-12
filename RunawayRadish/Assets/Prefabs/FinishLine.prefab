@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLimit: 0
-  tarCollectible: 11
+  tarCollectible: 21
   curCollectible: 0
   takeCollectibles: 1
   showCollectibleText: 1
