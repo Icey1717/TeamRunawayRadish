@@ -86,7 +86,7 @@ Material:
     - _LightAdd: -4.41
     - _LightBias: -4.78
     - _LightDot: 1
-    - _LightOPacity: 0.366
+    - _LightOPacity: 0.764
     - _LightOn: 1
     - _LightOneMinus: 1
     - _LightPower: -1.25
@@ -114,8 +114,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightColour: {r: 0.91372555, g: 0.9176471, b: 0.43921572, a: 1}
-    - _LightPosition: {r: -3, g: 10, b: -1, a: 1}
-    - _ShadingTint: {r: 0, g: 0.19466907, b: 0.23584908, a: 1}
-    - _TintGradient: {r: 0.13124475, g: 0.745283, b: 0.575453, a: 1}
-    - _TintMain: {r: 0.28109932, g: 1, b: 0, a: 0}
+    - _LightPosition: {r: -3, g: 10, b: -4.7, a: 1}
+    - _ShadingTint: {r: 0.43980968, g: 0.49056602, b: 0.10490086, a: 1}
+    - _TintGradient: {r: 0.4627451, g: 0.7176471, b: 0.53907144, a: 1}
+    - _TintMain: {r: 0.61670214, g: 0.8207547, b: 0, a: 0}
   m_BuildTextureStacks: []
