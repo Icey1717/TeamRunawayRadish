@@ -29,12 +29,29 @@ public class Foosteps : MonoBehaviour
 
     private string surface;
 
+    private bool digging = false;
+
+    //private PlayerController player;
+
 
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         GetComponent<BoxCollider>();
+        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
+
+    void Update()
+    {
+        //if(player.TunnelVar.inTunnel == true)
+        //{
+           // audioSource.volume = 0f;
+        //}
+        //else
+        //{
+            //audioSource.volume = 0.305f;
+        //}
     }
 
     private void OnTriggerEnter(Collider floor)
@@ -62,7 +79,7 @@ public class Foosteps : MonoBehaviour
 
         audioSource.PlayOneShot(lClip);
 
-        Debug.Log("walking on " + surface);
+        //Debug.Log("walking on " + surface);
     }
 
     private void RStep()
@@ -71,7 +88,7 @@ public class Foosteps : MonoBehaviour
 
         audioSource.PlayOneShot(rClip);
 
-        Debug.Log("walking on " + surface);
+        //Debug.Log("walking on " + surface);
     }
 
     private AudioClip getLClip()
@@ -96,7 +113,7 @@ public class Foosteps : MonoBehaviour
         {
             return clips[0];
         }
-        Debug.Log("path 5 :o!");
+        //Debug.Log("path 5 :o!");
         return clips[0];
 
     }
@@ -124,7 +141,7 @@ public class Foosteps : MonoBehaviour
             return clips[1];
         }
 
-        Debug.Log("path 5 :o!");
+        //Debug.Log("path 5 :o!");
         return clips[1];
     }
 

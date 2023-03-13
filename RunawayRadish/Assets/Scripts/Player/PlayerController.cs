@@ -479,7 +479,7 @@ public class PlayerController : MonoBehaviour
                 dir = Vector3.Normalize(new Vector3(dir.y, -dir.x, 0));
             else
                 dir = Vector3.Normalize(new Vector3(-dir.y, dir.x, 0));
-            UnityEngine.Debug.Log(dir);
+            //UnityEngine.Debug.Log(dir);
             rb.AddForce(dir * swing.swingSpeed * 10);
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, swing.swingSpeed);
             rb.transform.position = swing.swingPivot.position + (Vector3.Normalize(rb.transform.position - swing.swingPivot.position) * swing.swingDist);
@@ -600,7 +600,7 @@ public class PlayerController : MonoBehaviour
 
         if (physics.onGround && !tunnel.inTunnel && !isGroundDiggable)
 		{
-            UnityEngine.Debug.Log("Grounded pos: " + rb.position);
+            //UnityEngine.Debug.Log("Grounded pos: " + rb.position);
             physics.lastGroundedPos = rb.position;
 		}
     }

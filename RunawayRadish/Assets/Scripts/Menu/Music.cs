@@ -28,16 +28,18 @@ public class Music : MonoBehaviour
 
     private AudioSource audioSource;
 
+    //private IEnumerator musicTracks;
+
     private int i;
 
-    private IEnumerator musicTracks;
+    private bool party = false;
 
     // Start is called before the first frame update
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
-        musicTracks = playAudioSequentially();
+        //musicTracks = playAudioSequentially();
 
         startMusic();
     }
@@ -46,53 +48,68 @@ public class Music : MonoBehaviour
     {
         if (!audioSource.isPlaying)
         {
-            startMusic();
+            StartCoroutine("Wait");
         }
     }
 
-    IEnumerator playAudioSequentially()
+    private IEnumerator PlayAudioSequentially()
     {
         Debug.Log("Coroutine started" + i);
+
 
         for (i = 0; i < music.Length; i++)
         {
             audioSource.clip = music[i];
+            Debug.Log("playing clip " + i);
 
             audioSource.Play();
 
             while (audioSource.isPlaying)
             {
+                if (party)
+                {
+                    Debug.Log("coroutine broken");
+                    yield break;
+                }
+
                 yield return null;
             }
         }
-
-        if (i == music.Length)
+        
+        if (i >= music.Length)
         {
             i = 0;
         }
+
+        
     }
 
     public void startMusic()
     {
         Debug.Log("Starting music" + i);
 
-        if (i == music.Length)
+        if (i >= music.Length)
         {
             i = 0;
 
-            StartCoroutine(musicTracks);
+            StartCoroutine("PlayAudioSequentially");
         }
 
         else
         {
-            StartCoroutine(musicTracks);
+            StartCoroutine("PlayAudioSequentially");
         }
     }
 
     public void partyTime()
     {
         Debug.Log("Party time");
-        StopCoroutine(musicTracks);
+
+        StopCoroutine("PlayAudioSequentially");
+
+        i++;
+
+        party = true;
         
         audioSource.clip = endCelebration[0];
 
@@ -111,8 +128,24 @@ public class Music : MonoBehaviour
         audioSource.volume = 0.5f;
     }
 
-    public void stopMusic()
+    public void restartMusic()
     {
+        Debug.Log("Restarting music");
         audioSource.Stop();
+
+        party = false;
+
+        startMusic();
+    }
+
+    private IEnumerator Wait()
+    {
+        Debug.Log("waiting");
+        yield return new WaitForSeconds(15);
+
+        if(!audioSource.isPlaying)
+        {
+            startMusic();
+        }
     }
 }

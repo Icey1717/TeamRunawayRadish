@@ -13,7 +13,9 @@ public class CollectableController : MonoBehaviour
     [HideInInspector]
     public GameObject targetObject;
     FollowerTracker tracker;
+
 	private AudioSource audioSource;
+
 
 	Queue<Vector3> TrackedPositions = new Queue<Vector3>();
 
@@ -26,9 +28,10 @@ public class CollectableController : MonoBehaviour
 	[SerializeField]
 	public List<AudioClip> proximitySounds;
 
-	[SerializeField]
-	private GameObject scoreKeeper;
 	private ScoreKeeper score;
+
+	private ParticleSystem sparkles;
+
 
 	public float bobSpeed = 2.0f;
 	public float bobHeight = 0.1f;
@@ -68,13 +71,17 @@ public class CollectableController : MonoBehaviour
 	void Start()
     {
 		audioSource = GetComponent<AudioSource>();
-		score = scoreKeeper.GetComponent<ScoreKeeper>();
+		score = GameObject.FindGameObjectWithTag("ScoreKeeper").GetComponent<ScoreKeeper>();
 		timer = Random.Range(minCryTime, maxCryTime);
+		sparkles = GetComponent<ParticleSystem>();
 	}
     
     // Update is called once per frame
     void Update()
     {
+		sparkles.Play();
+		//Debug.Log("sparkles are playing? " + sparkles.isPlaying);				
+
 		time += Time.deltaTime * bobSpeed;
 
 		if (targetObject != null)
@@ -138,6 +145,8 @@ public class CollectableController : MonoBehaviour
             tracker = collision.gameObject.GetComponent<FollowerTracker>();
 
             Debug.Log("Getting the follower tracker from: " + collision.gameObject.name);
+
+
 
 			PlaySoundInList(collectSounds);
 

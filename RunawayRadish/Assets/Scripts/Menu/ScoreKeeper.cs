@@ -41,7 +41,7 @@ public class ScoreKeeper : MonoBehaviour
 
     public static ScoreKeeper instance;
 
-    Music music;
+    private Music music;
 
 	public void Awake()
 	{
@@ -123,7 +123,7 @@ public class ScoreKeeper : MonoBehaviour
         FinishLine.completed = false;
 
         music.inMenus();
-        music.stopMusic();
+        music.restartMusic();
 
         //Debug.Log("Restarting. onScoreScreen =" + onScoreScreen + " and onStartMenu =" + onStartMenu);
 
