@@ -43199,9 +43199,13 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 376272274701032107, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 477
+      objectReference: {fileID: 0}
     - target: {fileID: 3027727065908797630, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -363
+      value: -500
       objectReference: {fileID: 0}
     - target: {fileID: 3707774443736886305, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
       propertyPath: m_RootOrder
@@ -43253,7 +43257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3707774443736886319, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
       propertyPath: tarCollectible
-      value: 1
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 3707774443736886319, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
       propertyPath: finishEvent.m_PersistentCalls.m_Calls.Array.size
@@ -43582,7 +43586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -601, y: -297}
+  m_AnchoredPosition: {x: -843, y: -421}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2034094262
