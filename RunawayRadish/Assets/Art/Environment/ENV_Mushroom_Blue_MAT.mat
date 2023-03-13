@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ENV_Mushroom_MAT 1
+  m_Name: ENV_Mushroom_Blue_MAT
   m_Shader: {fileID: 4800000, guid: 86914ce85b2c1c942bbf273dcefccf47, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:

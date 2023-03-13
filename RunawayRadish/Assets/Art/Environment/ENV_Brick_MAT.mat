@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ENV_Mushroom_MAT
+  m_Name: ENV_Brick_MAT
   m_Shader: {fileID: 4800000, guid: 86914ce85b2c1c942bbf273dcefccf47, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -112,9 +112,9 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightColour: {r: 0.2924528, g: 0.2732969, b: 0.26670223, a: 1}
-    - _LightPosition: {r: -3, g: 10, b: -1, a: 1}
-    - _ShadingTint: {r: 0.16862746, g: 0.17730996, b: 0.30980393, a: 1}
-    - _TintGradient: {r: 0.4811321, g: 0.41133308, b: 0.3207547, a: 1}
-    - _TintMain: {r: 0.9056604, g: 0.49592972, b: 0.4328942, a: 1}
+    - _LightColour: {r: 0.29245275, g: 0.27329683, b: 0.26670218, a: 1}
+    - _LightPosition: {r: -3, g: 10, b: -1, a: 0}
+    - _ShadingTint: {r: 0.16862738, g: 0.1773099, b: 0.30980387, a: 1}
+    - _TintGradient: {r: 0.5471698, g: 0.39906204, b: 0.37510374, a: 1}
+    - _TintMain: {r: 0.8301887, g: 0.7259782, b: 0.71009845, a: 1}
   m_BuildTextureStacks: []
