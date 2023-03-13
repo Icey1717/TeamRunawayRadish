@@ -115,6 +115,6 @@ Material:
     - _LightColour: {r: 0.2924528, g: 0.2732969, b: 0.26670223, a: 1}
     - _LightPosition: {r: -3, g: 10, b: -1, a: 1}
     - _ShadingTint: {r: 0.21002659, g: 0.21698111, b: 0.16273583, a: 1}
-    - _TintGradient: {r: 0.7264151, g: 0.6169624, b: 0.48998755, a: 1}
+    - _TintGradient: {r: 0.7924528, g: 0.6720897, b: 0.53453183, a: 1}
     - _TintMain: {r: 0.8584906, g: 0.30679482, b: 0.19032574, a: 1}
   m_BuildTextureStacks: []
