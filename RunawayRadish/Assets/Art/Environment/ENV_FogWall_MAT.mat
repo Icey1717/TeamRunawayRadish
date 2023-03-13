@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: bb4b4370dcb8aa24a9ecb8aee5ce9648, type: 3}
+        m_Texture: {fileID: 2800000, guid: 31b4ece03db5cb54b8e0522117f8be37, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatcapTex:
@@ -170,7 +170,7 @@ Material:
     - _ShimmerUV: {r: 0, g: 0, b: 0, a: 0}
     - _StarsTint: {r: 0, g: 0, b: 0, a: 0}
     - _TeamTint: {r: 0.32452825, g: 0.5479534, b: 1, a: 1}
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 0.85882354, g: 0.7828665, b: 0.5411765, a: 1}
     - _TintAlpha: {r: 0, g: 0.13243723, b: 1, a: 0}
     - _TintBody: {r: 1, g: 1, b: 1, a: 0}
     - _TintFeet: {r: 1, g: 1, b: 1, a: 0}
