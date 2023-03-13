@@ -126,6 +126,7 @@ Material:
     - _ObjectGradPow: 0
     - _ObjectGradVal: 0
     - _OcclusionStrength: 1
+    - _Opacity: 0
     - _OutlineTintStrength: 0.85
     - _Parallax: 0.02
     - _ROM: 3.12
@@ -171,7 +172,7 @@ Material:
     - _ShimmerUV: {r: 0, g: 0, b: 0, a: 0}
     - _StarsTint: {r: 0, g: 0, b: 0, a: 0}
     - _TeamTint: {r: 0.32452825, g: 0.5479534, b: 1, a: 1}
-    - _Tint: {r: 0.4433962, g: 0.31951952, b: 0.15337601, a: 1}
+    - _Tint: {r: 0.108082, g: 0.11320752, b: 0.001779981, a: 1}
     - _TintAlpha: {r: 0, g: 0.13243723, b: 1, a: 0}
     - _TintBody: {r: 1, g: 1, b: 1, a: 0}
     - _TintFeet: {r: 1, g: 1, b: 1, a: 0}

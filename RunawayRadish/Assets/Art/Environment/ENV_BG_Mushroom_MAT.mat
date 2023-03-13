@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ENV_Plank_MAT
+  m_Name: ENV_BG_Mushroom_MAT
   m_Shader: {fileID: 4800000, guid: 86914ce85b2c1c942bbf273dcefccf47, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -54,7 +54,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
         m_Texture: {fileID: 2800000, guid: 95b43aa46a68d0c4eb5ce453bfc58a2b, type: 3}
-        m_Scale: {x: 0.07, y: 0.66}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -78,29 +78,29 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Grad_Blur: 1.7
-    - _Grad_Height: 0.22
+    - _Grad_Blur: 1.98
+    - _Grad_Height: 3.62
     - _GradientToggleOn: 1
     - _GradientToggleOnOff: 0
-    - _LightAdd: -1.57
-    - _LightBias: -1.65
+    - _LightAdd: -1.6
+    - _LightBias: -1.34
     - _LightDot: 1
-    - _LightOPacity: 0.216
+    - _LightOPacity: 1
     - _LightOn: 1
     - _LightOneMinus: 0
     - _LightPower: -1.25
     - _LightStrength: 0.24
-    - _LightVal: -1.59
+    - _LightVal: -2.97
     - _Metallic: 0
     - _Mode: 0
-    - _NoiseTexStrength: 1
+    - _NoiseTexStrength: 0.716
     - _NoiseTexToggle: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ShadingAdd: 0.04
-    - _ShadingBias: 1.52
-    - _ShadingVal: 1.73
-    - _ShadowStrength: 0.747
+    - _ShadingAdd: 0.94
+    - _ShadingBias: 3.69
+    - _ShadingVal: 0.63
+    - _ShadowStrength: 0.928
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -112,9 +112,9 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightColour: {r: 0.6886792, g: 0.57085174, b: 0.3941497, a: 1}
-    - _LightPosition: {r: 0, g: 10, b: 0, a: 1}
-    - _ShadingTint: {r: 0.1792453, g: 0.11940993, b: 0.05354811, a: 1}
-    - _TintGradient: {r: 0.3207547, g: 0.3046161, b: 0.3046161, a: 1}
-    - _TintMain: {r: 0.4716981, g: 0.36306617, b: 0.22546573, a: 1}
+    - _LightColour: {r: 0.2924528, g: 0.2732969, b: 0.26670223, a: 1}
+    - _LightPosition: {r: -3, g: 10, b: -1, a: 1}
+    - _ShadingTint: {r: 0.3301887, g: 0.28987083, b: 0.07060635, a: 1}
+    - _TintGradient: {r: 0.6037736, g: 0.58298856, b: 0.26581225, a: 1}
+    - _TintMain: {r: 0.5943396, g: 0.3233749, b: 0.18876818, a: 1}
   m_BuildTextureStacks: []
