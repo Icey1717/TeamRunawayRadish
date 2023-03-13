@@ -85,7 +85,7 @@ Material:
     - _LightAdd: -1.57
     - _LightBias: -1.65
     - _LightDot: 1
-    - _LightOPacity: 1
+    - _LightOPacity: 0.216
     - _LightOn: 1
     - _LightOneMinus: 0
     - _LightPower: -1.25
@@ -97,9 +97,9 @@ Material:
     - _NoiseTexToggle: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ShadingAdd: 0.28
-    - _ShadingBias: 1.4
-    - _ShadingVal: 1.17
+    - _ShadingAdd: 0.04
+    - _ShadingBias: 1.52
+    - _ShadingVal: 1.73
     - _ShadowStrength: 0.817
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -115,6 +115,6 @@ Material:
     - _LightColour: {r: 0.6886792, g: 0.57085174, b: 0.3941497, a: 1}
     - _LightPosition: {r: 0, g: 10, b: 0, a: 1}
     - _ShadingTint: {r: 0.12793529, g: 0.12323481, b: 0.2924528, a: 1}
-    - _TintGradient: {r: 0.18431373, g: 0.1764706, b: 0.1764706, a: 1}
-    - _TintMain: {r: 0.5377358, g: 0.4849118, b: 0.42443925, a: 1}
+    - _TintGradient: {r: 0.3207547, g: 0.3046161, b: 0.3046161, a: 1}
+    - _TintMain: {r: 0.46226418, g: 0.4029648, b: 0.329981, a: 1}
   m_BuildTextureStacks: []

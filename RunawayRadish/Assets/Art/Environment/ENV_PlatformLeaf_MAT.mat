@@ -86,7 +86,7 @@ Material:
     - _LightAdd: -4.41
     - _LightBias: -4.78
     - _LightDot: 1
-    - _LightOPacity: 1
+    - _LightOPacity: 0.366
     - _LightOn: 1
     - _LightOneMinus: 1
     - _LightPower: -1.25
