@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ENV_DirtDiggable_MAT
+  m_Name: ENV_DirtBlocker_MAT
   m_Shader: {fileID: 4800000, guid: 86914ce85b2c1c942bbf273dcefccf47, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -52,7 +52,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
         m_Texture: {fileID: 2800000, guid: 95b43aa46a68d0c4eb5ce453bfc58a2b, type: 3}
-        m_Scale: {x: 4.78, y: 1}
+        m_Scale: {x: -0.09, y: 0.21}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -76,19 +76,13 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Grad_Blur: 0
-    - _Grad_Height: 1.81
-    - _GradientToggleOn: 0
-    - _GradientToggleOnOff: 0
-    - _LightAdd: 1
-    - _LightBias: 1
-    - _LightDot: 1
-    - _LightOPacity: 1
-    - _LightOn: 0
+    - _Grad_Blur: 2.82
+    - _Grad_Height: 2.44
+    - _LightAdd: -0.61
+    - _LightBias: 1.09
+    - _LightOPacity: 0.276
     - _LightOneMinus: 0
-    - _LightPower: 0
-    - _LightStrength: 0
-    - _LightVal: 0.5
+    - _LightVal: 1.59
     - _Metallic: 0
     - _Mode: 0
     - _NoiseTexStrength: 1
@@ -96,10 +90,10 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineTintStrength: 0.5
     - _Parallax: 0.02
-    - _ShadingAdd: 1.54
-    - _ShadingBias: 0.27
+    - _ShadingAdd: 2.95
+    - _ShadingBias: 0.75
     - _ShadingVal: 1
-    - _ShadowStrength: 0.376
+    - _ShadowStrength: 0.482
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -111,13 +105,13 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightColour: {r: 0, g: 0, b: 0, a: 0}
-    - _LightPosition: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadingTint: {r: 0.033938505, g: 0.033938505, b: 0.24528301, a: 0}
+    - _LightColour: {r: 0.4056604, g: 0.3070343, b: 0.24747834, a: 1}
+    - _LightPosition: {r: 0, g: 1, b: 1, a: 0}
+    - _ShadingTint: {r: 0.08235294, g: 0.058823533, b: 0.18431373, a: 1}
     - _TintBody: {r: 0.5566038, g: 0.45508483, b: 0.45508483, a: 0}
     - _TintFeet: {r: 0.16981131, g: 0.14044142, b: 0.14044142, a: 0}
-    - _TintGradient: {r: 0.19607842, g: 0.18431368, b: 0.18431368, a: 1}
-    - _TintMain: {r: 0.19811317, g: 0.1844072, b: 0.1844072, a: 0}
+    - _TintGradient: {r: 0.254717, g: 0.23228908, b: 0.23228908, a: 1}
+    - _TintMain: {r: 0.21698111, g: 0.20033224, b: 0.17535894, a: 0}
     - _TintMist: {r: 1, g: 1, b: 1, a: 0}
     - _TintOutline: {r: 0.57547164, g: 0.57547164, b: 0.57547164, a: 0}
   m_BuildTextureStacks: []

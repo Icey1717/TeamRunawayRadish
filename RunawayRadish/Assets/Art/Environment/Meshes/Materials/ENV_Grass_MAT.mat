@@ -86,7 +86,7 @@ Material:
     - _LightAdd: -2.8
     - _LightBias: -1.42
     - _LightDot: 1
-    - _LightOPacity: 0.552
+    - _LightOPacity: 0.384
     - _LightOn: 1
     - _LightOneMinus: 1
     - _LightPower: -1.25
@@ -114,7 +114,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightColour: {r: 0.91764706, g: 0.91683924, b: 0.43921572, a: 1}
-    - _LightPosition: {r: -3, g: 10, b: -1, a: 1}
+    - _LightPosition: {r: -3, g: 10, b: -9.84, a: 1}
     - _ShadingTint: {r: 0.054901965, g: 0.2627451, b: 0.20236719, a: 1}
     - _TintGradient: {r: 0.20741062, g: 0.2735849, b: 0.017206568, a: 1}
     - _TintMain: {r: 0.4191289, g: 0.5188679, b: 0.21864241, a: 1}

@@ -52,7 +52,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
         m_Texture: {fileID: 2800000, guid: 95b43aa46a68d0c4eb5ce453bfc58a2b, type: 3}
-        m_Scale: {x: 0.09, y: 0.59}
+        m_Scale: {x: 5.04, y: 2.14}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -76,11 +76,11 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Grad_Blur: 2.82
-    - _Grad_Height: 2.44
+    - _Grad_Blur: 3.42
+    - _Grad_Height: 2.22
     - _LightAdd: -0.61
     - _LightBias: 1.09
-    - _LightOPacity: 0.505
+    - _LightOPacity: 0
     - _LightOneMinus: 0
     - _LightVal: 1.59
     - _Metallic: 0
@@ -93,7 +93,7 @@ Material:
     - _ShadingAdd: 2.95
     - _ShadingBias: 0.75
     - _ShadingVal: 1
-    - _ShadowStrength: 0.586
+    - _ShadowStrength: 0.521
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -110,8 +110,8 @@ Material:
     - _ShadingTint: {r: 0.08235294, g: 0.058823533, b: 0.18431373, a: 1}
     - _TintBody: {r: 0.5566038, g: 0.45508483, b: 0.45508483, a: 0}
     - _TintFeet: {r: 0.16981131, g: 0.14044142, b: 0.14044142, a: 0}
-    - _TintGradient: {r: 0.2264151, g: 0.18511926, b: 0.18511926, a: 1}
-    - _TintMain: {r: 0.254717, g: 0.2274831, b: 0.2274831, a: 0}
+    - _TintGradient: {r: 0, g: 0, b: 0, a: 1}
+    - _TintMain: {r: 0.5566038, g: 0.5455228, b: 0.53384954, a: 0}
     - _TintMist: {r: 1, g: 1, b: 1, a: 0}
     - _TintOutline: {r: 0.57547164, g: 0.57547164, b: 0.57547164, a: 0}
   m_BuildTextureStacks: []
