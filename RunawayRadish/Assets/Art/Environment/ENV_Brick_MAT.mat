@@ -79,7 +79,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Grad_Blur: 1.98
-    - _Grad_Height: 3.62
+    - _Grad_Height: 1.86
     - _GradientToggleOn: 1
     - _GradientToggleOnOff: 0
     - _LightAdd: -1.6
@@ -100,7 +100,7 @@ Material:
     - _ShadingAdd: 0.94
     - _ShadingBias: 3.69
     - _ShadingVal: 0.63
-    - _ShadowStrength: 0.783
+    - _ShadowStrength: 0.862
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -115,6 +115,6 @@ Material:
     - _LightColour: {r: 0.745283, g: 0.5988805, b: 0.44060755, a: 1}
     - _LightPosition: {r: -3, g: 10, b: -1, a: 0}
     - _ShadingTint: {r: 0.254717, g: 0.20921168, b: 0.1770203, a: 1}
-    - _TintGradient: {r: 0.5, g: 0.3558513, b: 0.2625786, a: 1}
-    - _TintMain: {r: 0.8301887, g: 0.7259782, b: 0.71009845, a: 1}
+    - _TintGradient: {r: 0.7075472, g: 0.51519513, b: 0.39716092, a: 1}
+    - _TintMain: {r: 0.9433962, g: 0.85525024, b: 0.7609469, a: 1}
   m_BuildTextureStacks: []
