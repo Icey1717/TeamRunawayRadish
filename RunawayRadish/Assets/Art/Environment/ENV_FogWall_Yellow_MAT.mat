@@ -126,7 +126,7 @@ Material:
     - _ObjectGradPow: 0
     - _ObjectGradVal: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0.563
+    - _Opacity: 0.839
     - _OutlineTintStrength: 0.85
     - _Parallax: 0.02
     - _ROM: 3.12
