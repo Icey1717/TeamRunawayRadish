@@ -43,7 +43,9 @@ public class CollectableController : MonoBehaviour
 	void PlaySoundInList(List<AudioClip> list)
 	{
 		audioSource.clip = list[Random.Range(0, list.Count - 1)];
-		audioSource.Play();
+		audioSource.PlayOneShot(audioSource.clip, 7f);
+
+		audioSource.volume = 0.2f;
 	}
 
 	void PlaySoundLooping(AudioClip clip)
@@ -150,7 +152,7 @@ public class CollectableController : MonoBehaviour
             PlayerController.followers.Add(this);
 
 			PlaySoundLooping(followSound);
-			audioSource.volume = 0.2f;
+			
         }
     }
 }
