@@ -52,6 +52,7 @@ public class Music : MonoBehaviour
 
     IEnumerator playAudioSequentially()
     {
+        Debug.Log("Coroutine started" + i);
 
         for (i = 0; i < music.Length; i++)
         {
@@ -73,11 +74,19 @@ public class Music : MonoBehaviour
 
     public void startMusic()
     {
-        Debug.Log("Starting music");
+        Debug.Log("Starting music" + i);
 
-        audioSource.Stop();
+        if (i == music.Length)
+        {
+            i = 0;
 
-        StartCoroutine(musicTracks);
+            StartCoroutine(musicTracks);
+        }
+
+        else
+        {
+            StartCoroutine(musicTracks);
+        }
     }
 
     public void partyTime()
@@ -93,7 +102,7 @@ public class Music : MonoBehaviour
     public void inLevel()
     {
         Debug.Log("Turning down");
-        audioSource.volume = 0.214f;
+        audioSource.volume = 0.195f;
     }
 
     public void inMenus()

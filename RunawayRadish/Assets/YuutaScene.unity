@@ -43253,7 +43253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3707774443736886319, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
       propertyPath: tarCollectible
-      value: 21
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3707774443736886319, guid: 04dd4454304e5c34d8f3e932e1b19564, type: 3}
       propertyPath: finishEvent.m_PersistentCalls.m_Calls.Array.size
