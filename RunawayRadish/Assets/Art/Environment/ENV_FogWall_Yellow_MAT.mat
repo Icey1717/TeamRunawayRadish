@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ENV_FogWall_MAT
+  m_Name: ENV_FogWall_Yellow_MAT
   m_Shader: {fileID: 4800000, guid: 369532b070332c44a99d6ea61c2ffcfd, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -126,6 +126,7 @@ Material:
     - _ObjectGradPow: 0
     - _ObjectGradVal: 0
     - _OcclusionStrength: 1
+    - _Opacity: 0.522
     - _OutlineTintStrength: 0.85
     - _Parallax: 0.02
     - _ROM: 3.12
@@ -144,6 +145,7 @@ Material:
     - _StarsScale: 0.5
     - _StarsWarp: 0.5
     - _TeamTintVal: 0
+    - _TexStrength: 0
     - _UVSec: 0
     - _WorldDotAdd: 0
     - _WorldDotPow: 0
@@ -170,7 +172,7 @@ Material:
     - _ShimmerUV: {r: 0, g: 0, b: 0, a: 0}
     - _StarsTint: {r: 0, g: 0, b: 0, a: 0}
     - _TeamTint: {r: 0.32452825, g: 0.5479534, b: 1, a: 1}
-    - _Tint: {r: 0.85882354, g: 0.7828665, b: 0.5411765, a: 1}
+    - _Tint: {r: 0.9150943, g: 0.81114346, b: 0.47193533, a: 1}
     - _TintAlpha: {r: 0, g: 0.13243723, b: 1, a: 0}
     - _TintBody: {r: 1, g: 1, b: 1, a: 0}
     - _TintFeet: {r: 1, g: 1, b: 1, a: 0}
