@@ -57,7 +57,7 @@ public class Music : MonoBehaviour
         Debug.Log("Coroutine started" + i);
 
 
-        for (i = 0; i < music.Length; i++)
+        for (i = i; i < music.Length; i++)
         {
             audioSource.clip = music[i];
             Debug.Log("playing clip " + i);
@@ -119,7 +119,7 @@ public class Music : MonoBehaviour
     public void inLevel()
     {
         Debug.Log("Turning down");
-        audioSource.volume = 0.195f;
+        audioSource.volume = 0.185f;
     }
 
     public void inMenus()
